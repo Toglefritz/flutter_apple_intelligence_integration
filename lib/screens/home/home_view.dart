@@ -63,14 +63,14 @@ class HomeView extends StatelessWidget {
                         ),
                         Divider(
                           color: Theme.of(context).primaryColor,
-                          height: 32.0,
+                          height: 16.0,
                           thickness: 2.0,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
                             left: 8.0,
                             right: 8.0,
-                            bottom: 16.0,
+                            bottom: 8.0,
                           ),
                           child: Row(
                             children: [
