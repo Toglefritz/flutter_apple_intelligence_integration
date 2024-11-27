@@ -1,0 +1,14 @@
+{
+  "featuresHeader": "Apple Intelligence Services",
+  "@featuresHeader": {
+    "description": "Header for the features section."
+  },
+  "featureItemCount": "6 items",
+  "@featureItemCount": {
+    "description": "The number of items in the features section."
+  },
+  "welcomeMessage": "Welcome to the Apple Intelligence Integration Demo.",
+  "@welcomeMessage": {
+    "description": "A welcome message for the app."
+  }
+}

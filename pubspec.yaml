@@ -8,10 +8,16 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  # The Flutter SDK.
   flutter:
     sdk: flutter
+  # Used for date formatting.
+  intl: ^0.19.0
 
 dev_dependencies:
+  # Provides the Flutter Localizations package.
+  flutter_localizations:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   # Provides lint rules used internally at Very Good Ventures.
@@ -19,3 +25,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/
+
+  fonts:
+    - family: Chicago
+      fonts:
+        - asset: fonts/Chicago.ttf
