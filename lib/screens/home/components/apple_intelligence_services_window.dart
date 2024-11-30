@@ -66,6 +66,7 @@ class AppleIntelligencesServicesWindow extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ServiceBadge(
                 imageAsset: ImageAsset.nlpIcon,
