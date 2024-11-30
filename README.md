@@ -22,6 +22,11 @@ infrastructure and keep your codebase clean.
 
 ## Key Features
 
+- **Customizable Services**: Each service class (e.g., `AppleIntelligenceVisionService`) can be
+  instantiated to use either the default pre-trained models or custom Core ML models.
+- **Dynamic Model Selection**: Methods within the service classes dynamically select between
+  built-in models and custom models, giving preference to the provided custom Core ML model if
+  available.
 - **Modular Design**: Each Apple Intelligence capability is encapsulated in a pair of Dart and Swift
   files.
 - **Reusable Dart Services**: Dart classes handle Method Channel communication with the native iOS
@@ -40,7 +45,6 @@ corresponding native Swift handler using a dedicated Method Channel.
 ```text
 lib/
 ├── services/
-│   ├── apple_intelligence_coreml_service.dart       # Core ML integration
 │   ├── apple_intelligence_vision_service.dart      # Vision framework integration
 │   ├── apple_intelligence_natural_language_service.dart # Natural Language framework integration
 │   ├── apple_intelligence_speech_service.dart      # Speech recognition integration
@@ -58,8 +62,6 @@ return results back to the Flutter app.
 ios/
 └── Runner/
     ├── PlatformChannels/
-    │   ├── CoreML/
-    │   │   └── CoreMLMethodChannelHandler.swift
     │   ├── Vision/
     │   │   └── VisionMethodChannelHandler.swift
     │   ├── NaturalLanguage/
@@ -72,6 +74,24 @@ ios/
     │       └── TranslationMethodChannelHandler.swift
     └── AppDelegate.swift
 ```
+
+## Using Custom Models with Core ML
+
+Each service class allows developers to pass a custom Core ML model during instantiation. For
+example:
+
+```dart
+// Using the built-in Vision model
+final AppleIntelligenceVisionService visionService = AppleIntelligenceVisionService();
+
+// Using a custom Core ML model for Vision
+final AppleIntelligenceVisionService visionServiceWithCustomModel = AppleIntelligenceVisionService
+    .withCustomModel(
+    'CustomVisionModelName');
+```
+
+Methods within the service class, such as `analyzeSentiment` or `classifyImage`, dynamically choose
+between using the built-in model or the provided custom Core ML model.
 
 ## How to Use This Project
 

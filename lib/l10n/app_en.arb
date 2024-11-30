@@ -7,6 +7,26 @@
   "@featureItemCount": {
     "description": "The number of items in the features section."
   },
+  "nlp": "Natural Language",
+  "@nlp": {
+    "description": "A label for the Apple Intelligence Natural Language Processing services."
+  },
+  "sound": "Sound",
+  "@sound": {
+    "description": "A label for the Apple Intelligence sound recognition services."
+  },
+  "speech": "Speech",
+  "@speech": {
+    "description": "A label for the Apple Intelligence speech services."
+  },
+  "translation": "Translation",
+  "@translation": {
+    "description": "A label for the Apple Intelligence translation services."
+  },
+  "vision": "Vision",
+  "@vision": {
+    "description": "A label for the Apple Intelligence vision services."
+  },
   "welcomeMessage": "Welcome to the Apple Intelligence Integration Demo.",
   "@welcomeMessage": {
     "description": "A welcome message for the app."

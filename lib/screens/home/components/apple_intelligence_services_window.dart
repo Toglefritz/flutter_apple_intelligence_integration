@@ -1,4 +1,6 @@
 import 'package:demo_app/screens/components/brutalist_container.dart';
+import 'package:demo_app/screens/home/components/service_badge.dart';
+import 'package:demo_app/values/image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -62,10 +64,30 @@ class AppleIntelligencesServicesWindow extends StatelessWidget {
               thickness: 2.0,
             ),
           ),
-          Container(
-            height: 64,
-            width: 64,
-            child: Placeholder(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ServiceBadge(
+                imageAsset: ImageAsset.nlpIcon,
+                title: AppLocalizations.of(context)!.nlp.replaceAll(' ', '\n'),
+              ),
+              ServiceBadge(
+                imageAsset: ImageAsset.sound,
+                title: AppLocalizations.of(context)!.sound,
+              ),
+              ServiceBadge(
+                imageAsset: ImageAsset.speech,
+                title: AppLocalizations.of(context)!.speech,
+              ),
+              ServiceBadge(
+                imageAsset: ImageAsset.translation,
+                title: AppLocalizations.of(context)!.translation,
+              ),
+              ServiceBadge(
+                imageAsset: ImageAsset.vision,
+                title: AppLocalizations.of(context)!.vision,
+              ),
+            ],
           ),
           Divider(
             color: Theme.of(context).primaryColor,
