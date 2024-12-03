@@ -7,6 +7,15 @@
   "@featureItemCount": {
     "description": "The number of items in the features section."
   },
+  "naturalLanguageIdentifyLanguage": "Identify Language",
+  "@naturalLanguageIdentifyLanguage": {
+    "description": "A label for the Apple Intelligence Natural Language Processing identify language services."
+  },
+  "naturalLanguageIdentifiedLanguage": "Identified Language",
+  "@naturalLanguageIdentifiedLanguage": {
+    "description": "A label for the Apple Intelligence Natural Language Processing identified language services."
+  },
+  "naturalLanguageWelcomeMessage": "Apple Intelligence Natural Language Processing",
   "nlp": "Natural Language",
   "@nlp": {
     "description": "A label for the Apple Intelligence Natural Language Processing services."

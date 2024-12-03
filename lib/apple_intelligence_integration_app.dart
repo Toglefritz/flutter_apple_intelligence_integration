@@ -13,9 +13,8 @@ class AppleIntelligenceIntegrationApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Apple Intelligence Demo',
-      darkTheme: AppleIntelligenceIntegrationAppTheme.darkThemeData,
+      theme: AppleIntelligenceIntegrationAppTheme.themeData,
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const HomeRoute(),

@@ -1,4 +1,3 @@
-import 'package:demo_app/screens/components/checkerboard_background.dart';
 import 'package:demo_app/screens/home/components/apple_intelligence_services_window.dart';
 import 'package:demo_app/screens/home/components/welcome_message_window.dart';
 import 'package:demo_app/screens/home/home_controller.dart';
@@ -16,31 +15,30 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
-          CheckerboardBackground(),
           Padding(
-            padding: EdgeInsets.all(
+            padding: const EdgeInsets.all(
               Inset.large,
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: Inset.xLarge,
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Inset.medium,
                   ),
                   child: WelcomeMessageWindow(),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    Inset.xxxLarge,
-                    Inset.large,
-                    Inset.medium,
-                    Inset.large,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Inset.xLarge,
+                    vertical: Inset.medium,
                   ),
-                  child: AppleIntelligencesServicesWindow(),
+                  child: AppleIntelligencesServicesWindow(
+                    onServiceTapped: state.onServiceTap,
+                  ),
                 ),
               ],
             ),

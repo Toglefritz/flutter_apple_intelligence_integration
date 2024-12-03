@@ -22,8 +22,8 @@ class ServiceBadge extends StatelessWidget {
       children: [
         Image.asset(
           imageAsset.path,
-          width: 52,
-          height: 52,
+          width: 42,
+          height: 42,
         ),
         Text(
           title,

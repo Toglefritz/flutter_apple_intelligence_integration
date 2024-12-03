@@ -3,6 +3,9 @@ enum ImageAsset {
   /// A 2D, black and white glyph version of the app icon.
   appIcon('assets/apple_intelligence.png'),
 
+  /// A generic back arrow icon.
+  arrowIcon('assets/arrow_icon.png'),
+
   /// An icon used for the Apple Intelligence natural language processing service.
   nlpIcon('assets/nlp.png'),
 

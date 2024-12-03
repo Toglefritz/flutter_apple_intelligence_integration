@@ -1,3 +1,4 @@
+import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 
 /// A Flutter widget that displays a container with a black border, square corners, and a solid black shadow offset to
@@ -18,12 +19,15 @@ class BrutalistContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          width: 2.0,
+          width: Inset.xxSmall,
         ),
         borderRadius: BorderRadius.zero,
         boxShadow: const [
           BoxShadow(
-            offset: Offset(3.0, 3.0),
+            offset: Offset(
+              Inset.xxSmall,
+              Inset.xxSmall,
+            ),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/components/brutalist_container.dart';
 import 'package:demo_app/screens/home/components/service_badge.dart';
-import 'package:demo_app/values/image_asset.dart';
+import 'package:demo_app/services/models/apple_intelligence_service.dart';
+import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,8 +13,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AppleIntelligencesServicesWindow extends StatelessWidget {
   /// Creates a new instance of [AppleIntelligencesServicesWindow].
   const AppleIntelligencesServicesWindow({
+    required this.onServiceTapped,
     super.key,
   });
+
+  /// A function called when one of the badges representing services from Apple Intelligence is tapped.
+  final void Function(AppleIntelligenceService) onServiceTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +26,30 @@ class AppleIntelligencesServicesWindow extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: Inset.xSmall),
             child: Text(
               AppLocalizations.of(context)!.featuresHeader,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
           Divider(
             color: Theme.of(context).primaryColor,
-            height: 16.0,
-            thickness: 2.0,
+            height: Inset.small,
+            thickness: Inset.xxSmall,
           ),
           Padding(
             padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
+              left: Inset.medium,
+              right: Inset.small,
+              bottom: Inset.xxSmall,
             ),
             child: Row(
               children: [
                 Text(
                   AppLocalizations.of(context)!.featureItemCount,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Theme.of(context).primaryColor,
                       ),
                 ),
@@ -53,47 +58,36 @@ class AppleIntelligencesServicesWindow extends StatelessWidget {
           ),
           Divider(
             color: Theme.of(context).primaryColor,
-            height: 4.0,
-            thickness: 2.0,
+            height: Inset.xSmall,
+            thickness: Inset.xxSmall,
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(bottom: Inset.medium),
             child: Divider(
               color: Theme.of(context).primaryColor,
-              height: 2.0,
-              thickness: 2.0,
+              height: Inset.xxSmall,
+              thickness: Inset.xxSmall,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ServiceBadge(
-                imageAsset: ImageAsset.nlpIcon,
-                title: AppLocalizations.of(context)!.nlp.replaceAll(' ', '\n'),
-              ),
-              ServiceBadge(
-                imageAsset: ImageAsset.sound,
-                title: AppLocalizations.of(context)!.sound,
-              ),
-              ServiceBadge(
-                imageAsset: ImageAsset.speech,
-                title: AppLocalizations.of(context)!.speech,
-              ),
-              ServiceBadge(
-                imageAsset: ImageAsset.translation,
-                title: AppLocalizations.of(context)!.translation,
-              ),
-              ServiceBadge(
-                imageAsset: ImageAsset.vision,
-                title: AppLocalizations.of(context)!.vision,
-              ),
-            ],
+            children: List.generate(AppleIntelligenceService.values.length, (index) {
+              final AppleIntelligenceService service = AppleIntelligenceService.values[index];
+
+              return GestureDetector(
+                onTap: () => onServiceTapped(service),
+                child: ServiceBadge(
+                  imageAsset: service.icon,
+                  title: service.getLabel(context),
+                ),
+              );
+            }),
           ),
           Divider(
             color: Theme.of(context).primaryColor,
-            height: 32.0,
-            thickness: 2.0,
+            height: Inset.large,
+            thickness: Inset.xxSmall,
           ),
         ],
       ),
