@@ -4,7 +4,7 @@ import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 
 /// An enumeration of possible display formats for this widget.
-enum NaturalLanguageCapabilityWindowDisplayFormat {
+enum CapabilityWindowDisplayFormat {
   /// A window consisting of a header with three stripes and a white background.
   striped,
 
@@ -15,11 +15,21 @@ enum NaturalLanguageCapabilityWindowDisplayFormat {
   plain,
 }
 
-/// This widget is a simple banner for the section of the app containing demonstrations of the natural language
-/// processing features available in the Apple Intelligence Services.
-class NaturalLanguageCapabilityWindow extends StatelessWidget {
-  /// Creates a new instance of [NaturalLanguageCapabilityWindow].
-  const NaturalLanguageCapabilityWindow({
+/// A "window" that displays an interface for the demonstration of an Apple Intelligence capability.
+///
+/// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
+/// title at the top, a content area, and a footer. The content area is where the user interacts with the capability.
+///
+/// Different display formats are available for the window. The [CapabilityWindowDisplayFormat.striped] format includes
+/// a header with three stripes and a white background. The [CapabilityWindowDisplayFormat.fancy] format includes a header
+/// with five stripes with a square on the left side and a white background. The [CapabilityWindowDisplayFormat.plain]
+/// format includes a plain header and a grey background.
+///
+/// The content area is provided as a [Widget] to the [CapabilityWindow] constructor. This allows any generic content to
+/// be displayed in the window.
+class CapabilityWindow extends StatelessWidget {
+  /// Creates a new instance of [CapabilityWindow].
+  const CapabilityWindow({
     required this.displayFormat,
     required this.title,
     required this.content,
@@ -27,7 +37,7 @@ class NaturalLanguageCapabilityWindow extends StatelessWidget {
   });
 
   /// The display style of the window.
-  final NaturalLanguageCapabilityWindowDisplayFormat displayFormat;
+  final CapabilityWindowDisplayFormat displayFormat;
 
   /// The title to display at the top of the window.
   final String title;
@@ -37,7 +47,7 @@ class NaturalLanguageCapabilityWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (displayFormat == NaturalLanguageCapabilityWindowDisplayFormat.striped) {
+    if (displayFormat == CapabilityWindowDisplayFormat.striped) {
       return BrutalistContainer(
         child: Column(
           children: [
@@ -64,7 +74,7 @@ class NaturalLanguageCapabilityWindow extends StatelessWidget {
           ],
         ),
       );
-    } else if (displayFormat == NaturalLanguageCapabilityWindowDisplayFormat.plain) {
+    } else if (displayFormat == CapabilityWindowDisplayFormat.plain) {
       return BrutalistContainer(
         child: Column(
           children: [

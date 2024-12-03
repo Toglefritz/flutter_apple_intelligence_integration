@@ -1,4 +1,4 @@
-import 'package:demo_app/screens/natural_language/components/natural_language_capability_window.dart';
+import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/natural_language/natural_language_controller.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ class TokenizationWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NaturalLanguageCapabilityWindow(
-      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.plain,
+    return CapabilityWindow(
+      displayFormat: CapabilityWindowDisplayFormat.plain,
       title: AppLocalizations.of(context)!.naturalLanguageTokenization,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

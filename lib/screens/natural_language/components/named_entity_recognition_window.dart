@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:demo_app/screens/natural_language/components/natural_language_capability_window.dart';
+import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/natural_language/natural_language_controller.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +24,8 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NaturalLanguageCapabilityWindow(
-      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.striped,
+    return CapabilityWindow(
+      displayFormat: CapabilityWindowDisplayFormat.striped,
       title: AppLocalizations.of(context)!.naturalLanguageNamedEntityRecognition,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
