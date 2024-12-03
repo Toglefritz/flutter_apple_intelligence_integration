@@ -1,3 +1,4 @@
+import 'package:demo_app/services/apple_intelligence_natural_language/models/tokenization_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -159,15 +160,61 @@ class AppleIntelligenceNaturalLanguageService {
     }
   }
 
-  /// Tokenizes the input text into words or sentences.
+  /// Tokenizes the input text into smaller components, such as words or sentences.
   ///
-  /// This method uses the Natural Language framework to break the input text into smaller components.
+  /// This function uses the Natural Language framework to segment the input text into tokens based on the specified
+  /// `TokenizationUnit`. Tokenization is a key step in natural language processing, enabling downstream tasks like
+  /// sentiment analysis, entity recognition, and machine learning preprocessing.
   ///
-  /// - [text]: The input text to tokenize.
-  /// - [unit]: The level of tokenization (e.g., word or sentence).
-  Future<List<String>?> tokenize(String text, String unit) async {
+  /// ### Parameters:
+  /// - [text]: A `String` containing the input text to tokenize. The input can be any valid text, but longer and
+  /// contextually meaningful text yields better results.
+  ///
+  /// - [unit]: A `TokenizationUnit` value specifying the level of tokenization:
+  ///   - `TokenizationUnit.word`: Divides the text into individual words and punctuation marks.
+  ///   - `TokenizationUnit.sentence`: Divides the text into complete sentences.
+  ///
+  /// ### Returns:
+  /// - A `List<String>?` containing the tokenized components of the input text. The result depends
+  ///   on the specified unit:
+  ///   - For `TokenizationUnit.word`, the list contains individual words and punctuation marks.
+  ///   - For `TokenizationUnit.sentence`, the list contains full sentences.
+  /// - **Special Cases**:
+  ///   - If the input text is empty, the returned list will also be empty.
+  ///   - If tokenization fails due to an error or unsupported input, the function returns `null`.
+  ///
+  /// ### Errors:
+  /// - If tokenization fails, an error is logged using `debugPrint`, and `null` is returned.
+  ///
+  /// ### Usage:
+  /// ```dart
+  /// final wordTokens = await tokenize("This is a test sentence.", TokenizationUnit.word);
+  /// if (wordTokens != null) {
+  ///   print("Word tokens: $wordTokens");
+  /// } else {
+  ///   print("Failed to tokenize text into words.");
+  /// }
+  ///
+  /// final List<String>? sentenceTokens = await tokenize("This is a test sentence. Another one follows.", TokenizationUnit.sentence);
+  /// if (sentenceTokens != null) {
+  ///   print("Sentence tokens: $sentenceTokens");
+  /// } else {
+  ///   print("Failed to tokenize text into sentences.");
+  /// }
+  /// ```
+  Future<List<String>?> tokenize(String text, TokenizationUnit unit) async {
     try {
-      return await _channel.invokeMethod('tokenize', {'text': text, 'unit': unit}) as List<String>?;
+      // Convert the TokenizationUnit enum to a String value for the native method call.
+      final String unitString = unit == TokenizationUnit.word ? 'word' : 'sentence';
+
+      // Invoke the platform-specific method channel for tokenization.
+      final List<dynamic>? result = await _channel.invokeMethod<List<dynamic>>('tokenize', {
+        'text': text,
+        'unit': unitString,
+      });
+
+      // Safely cast the List<dynamic> to List<String>, or return null if casting fails.
+      return result?.cast<String>();
     } catch (e) {
       debugPrint('Tokenizing text failed with error, $e');
 

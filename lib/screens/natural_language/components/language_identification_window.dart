@@ -25,6 +25,7 @@ class LanguageIdentificationWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NaturalLanguageCapabilityWindow(
+      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.fancy,
       title: AppLocalizations.of(context)!.naturalLanguageIdentifyLanguage,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

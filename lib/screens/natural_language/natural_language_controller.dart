@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
 import 'package:demo_app/screens/natural_language/natural_language_view.dart';
-import 'package:demo_app/services/apple_intelligence_natural_language_service.dart';
+import 'package:demo_app/services/apple_intelligence_natural_language/apple_intelligence_natural_language_service.dart';
+import 'package:demo_app/services/apple_intelligence_natural_language/models/tokenization_unit.dart';
 import 'package:flutter/material.dart';
 
 /// A controller for the [NaturalLanguageRoute].
@@ -16,6 +17,10 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// sentiment.
   final TextEditingController analyzeSentimentTextController = TextEditingController();
 
+  /// A [TextEditingController] for the text field used to submit text for tokenization via the Apple Intelligence
+  /// service.
+  final TextEditingController tokenizeTextController = TextEditingController();
+
   /// A string representation of the language identified by Apple Intelligence for text submitted by the user.
   ///
   /// This value is set when the user submits text for which to identify the language. The value is a string
@@ -28,6 +33,9 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// This value is set when the user submits text for which to analyze the sentiment. The value is a double
   /// representing the sentiment score, which ranges from -1.0 (most negative) to 1.0 (most positive).
   double? identifiedSentiment;
+
+  /// A tokenized string based on the text submitted by the user.
+  List<String>? tokenizedText;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -67,6 +75,21 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
     });
   }
 
+  /// Called when the user submits text to be tokenized.
+  Future<void> onTokenize([String? text]) async {
+    final String textInput = text ?? tokenizeTextController.text;
+
+    debugPrint('Tokenizing text, $textInput');
+
+    // Use the natural language service to tokenize the text.
+    final List<String>? tokenized = await _naturalLanguageService.tokenize(textInput, TokenizationUnit.word);
+
+    debugPrint('Tokenized text as $tokenized');
+
+    setState(() {
+      tokenizedText = tokenized;
+    });
+  }
 
   @override
   Widget build(BuildContext context) => NaturalLanguageView(this);

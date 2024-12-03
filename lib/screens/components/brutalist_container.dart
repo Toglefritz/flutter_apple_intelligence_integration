@@ -10,14 +10,19 @@ class BrutalistContainer extends StatelessWidget {
   /// Creates an instance of [BrutalistContainer].
   const BrutalistContainer({
     required this.child,
+    this.backgroundColor = Colors.white,
     super.key,
   });
+
+
+  /// The background color of the container.
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: backgroundColor,
         border: Border.all(
           width: Inset.xxSmall,
         ),

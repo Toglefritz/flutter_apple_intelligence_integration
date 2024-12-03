@@ -22,6 +22,7 @@ class SentimentAnalysisWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NaturalLanguageCapabilityWindow(
+      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.striped,
       title: AppLocalizations.of(context)!.naturalLanguageSentimentAnalysis,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

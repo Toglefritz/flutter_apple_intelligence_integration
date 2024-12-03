@@ -23,6 +23,14 @@
   "@naturalLanguageSentimentScore": {
     "description": "A label for the Apple Intelligence Natural Language Processing sentiment score services."
   },
+  "naturalLanguageTokenization": "Tokenization",
+    "@naturalLanguageTokenization": {
+    "description": "A label for the Apple Intelligence Natural Language Processing tokenization services."
+    },
+  "naturalLanguageTokenizedText": "Tokenized Text",
+    "@naturalLanguageTokenizedText": {
+        "description": "A label for the Apple Intelligence Natural Language Processing tokenized text services."
+    },
   "naturalLanguageWelcomeMessage": "Apple Intelligence Natural Language Processing",
   "nlp": "Natural Language",
   "@nlp": {

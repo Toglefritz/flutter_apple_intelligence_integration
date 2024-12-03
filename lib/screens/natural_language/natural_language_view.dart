@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/natural_language/components/language_identification_window.dart';
 import 'package:demo_app/screens/natural_language/components/natural_language_welcome_window.dart';
 import 'package:demo_app/screens/natural_language/components/sentiment_analysis_window.dart';
+import 'package:demo_app/screens/natural_language/components/tokenization_window.dart';
 import 'package:demo_app/screens/natural_language/natural_language_controller.dart';
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
 import 'package:demo_app/values/image_asset.dart';
@@ -54,6 +55,13 @@ class NaturalLanguageView extends StatelessWidget {
                       horizontal: Inset.large,
                     ),
                     child: SentimentAnalysisWindow(state: state),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Inset.large,
+                      vertical: Inset.medium,
+                    ),
+                    child: TokenizationWindow(state: state),
                   ),
                 ],
               ),
