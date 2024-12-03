@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 class StripedWindowHeader extends StatelessWidget {
   /// Creates a new instance of [StripedWindowHeader].
   const StripedWindowHeader({
-    required this.title, super.key,
+    required this.title,
+    super.key,
   });
 
   /// The text to display within the window header.
@@ -50,8 +51,8 @@ class StripedWindowHeader extends StatelessWidget {
             child: Text(
               title,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).primaryColor,
-              ),
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
           ),
         ),

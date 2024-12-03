@@ -15,6 +15,14 @@
   "@naturalLanguageIdentifiedLanguage": {
     "description": "A label for the Apple Intelligence Natural Language Processing identified language services."
   },
+  "naturalLanguageSentimentAnalysis": "Sentiment Analysis",
+  "@naturalLanguageSentimentAnalysis": {
+    "description": "A label for the Apple Intelligence Natural Language Processing sentiment analysis services."
+  },
+  "naturalLanguageSentimentScore": "Sentiment Score",
+  "@naturalLanguageSentimentScore": {
+    "description": "A label for the Apple Intelligence Natural Language Processing sentiment score services."
+  },
   "naturalLanguageWelcomeMessage": "Apple Intelligence Natural Language Processing",
   "nlp": "Natural Language",
   "@nlp": {

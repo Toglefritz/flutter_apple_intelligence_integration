@@ -12,8 +12,22 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// language.
   final TextEditingController identifyLanguageTextController = TextEditingController();
 
+  /// A [TextEditingController] for the text field used to collect text for which Apple Intelligence will analyze the
+  /// sentiment.
+  final TextEditingController analyzeSentimentTextController = TextEditingController();
+
   /// A string representation of the language identified by Apple Intelligence for text submitted by the user.
+  ///
+  /// This value is set when the user submits text for which to identify the language. The value is a string
+  /// representation of a language code in the BCP 47 format (e.g., `"en"`, `"fr"`, `"es"`), which conforms to industry
+  /// standards for language tags.
   String? identifiedLanguage;
+
+  /// A string representation of the sentiment identified by Apple Intelligence for text submitted by the user.
+  ///
+  /// This value is set when the user submits text for which to analyze the sentiment. The value is a double
+  /// representing the sentiment score, which ranges from -1.0 (most negative) to 1.0 (most positive).
+  double? identifiedSentiment;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -36,6 +50,23 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
       identifiedLanguage = language;
     });
   }
+
+  /// Called when the user submits text for which to analyze the sentiment.
+  Future<void> onAnalyzeSentiment([String? text]) async {
+    final String textInput = text ?? analyzeSentimentTextController.text;
+
+    debugPrint('Analyzing sentiment for text, $textInput');
+
+    // Use the natural language service to analyze the sentiment of the text.
+    final double? sentiment = await _naturalLanguageService.analyzeSentiment(textInput);
+
+    debugPrint('Identified sentiment as $sentiment');
+
+    setState(() {
+      identifiedSentiment = sentiment;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) => NaturalLanguageView(this);
