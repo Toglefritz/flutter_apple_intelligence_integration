@@ -285,7 +285,7 @@ class AppleIntelligenceNaturalLanguageService {
       return result?.map((item) {
         if (item is Map) {
           return item.map(
-                (key, value) => MapEntry(
+            (key, value) => MapEntry(
               key.toString(),
               value.toString(),
             ),
@@ -301,14 +301,66 @@ class AppleIntelligenceNaturalLanguageService {
     }
   }
 
-  /// Lemmatizes the input text.
+  /// Reduces words in the input text to their base or dictionary form (lemma).
   ///
-  /// This method reduces words in the input text to their base forms (e.g., "running" → "run").
+  /// Lemmatization is the process of converting words in a sentence to their base or canonical form while considering
+  /// the context of the word. Unlike stemming, which often trims words down without understanding their grammatical
+  /// role, lemmatization uses linguistic rules and part-of-speech analysis to determine the proper base form.
   ///
-  /// - [text]: The input text to lemmatize.
+  /// ### Parameters:
+  /// - [text]: A `String` containing the input text to lemmatize. The text can be a single word,
+  ///   phrase, or sentence, but contextually rich input improves accuracy.
+  ///
+  /// ### Returns:
+  /// - A `List<String>?` where each item corresponds to the lemmatized form of a word or token
+  ///   from the input text. For example:
+  ///   - Input: `"running quickly"`
+  ///   - Output: `["run", "quickly"]`
+  ///
+  /// - **Special Cases**:
+  ///   - If the input text is empty, the function returns an empty list.
+  ///   - If lemmatization fails or an error occurs, the function returns `null`.
+  ///
+  /// ### Use of Apple Intelligence:
+  /// This function utilizes Apple's Natural Language framework to perform lemmatization. The framework analyzes the
+  /// grammatical role and context of each word in the input text to determine its appropriate lemma. For example:
+  /// - `"running"` → `"run"` (verb form)
+  /// - `"better"` → `"good"` (adjective form)
+  ///
+  /// The process ensures that lemmatization is accurate and linguistically correct across a wide range of supported
+  /// languages.
+  ///
+  /// ### Use Cases:
+  /// Lemmatization is widely used in Natural Language Processing (NLP) for tasks such as:
+  /// - **Text Analysis**: Reducing word variations to a common base form for easier comparison.
+  /// - **Search Optimization**: Enabling search engines to match queries like `"run"` and `"running"` to the same
+  /// results.
+  /// - **Sentiment Analysis**: Preprocessing text to simplify variations in word forms.
+  /// - **Machine Learning**: Preparing normalized text for training NLP models.
+  ///
+  /// ### Example Usage:
+  /// ```dart
+  /// final List<String>? lemmas = await lemmatize("The children are playing happily in the playground.");
+  /// if (lemmas != null) {
+  ///   print("Lemmas: $lemmas");
+  /// } else {
+  ///   print("Failed to lemmatize the input text.");
+  /// }
+  /// ```
+  ///
+  /// **Expected Output**:
+  /// ```dart
+  /// Lemmas: ["The", "child", "be", "play", "happily", "in", "the", "playground"]
+  /// ```
   Future<List<String>?> lemmatize(String text) async {
     try {
-      return await _channel.invokeMethod('lemmatize', {'text': text}) as List<String>?;
+      final List<dynamic>? result = await _channel.invokeMethod(
+        'lemmatize',
+        {'text': text},
+      );
+
+      // Safely cast the List<dynamic> to List<String>, or return null if casting fails.
+      return result?.cast<String>();
     } catch (e) {
       debugPrint('Lemmatizing text failed with error, $e');
 

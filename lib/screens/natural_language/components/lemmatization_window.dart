@@ -1,20 +1,18 @@
-import 'dart:convert';
 import 'package:demo_app/screens/natural_language/components/natural_language_capability_window.dart';
 import 'package:demo_app/screens/natural_language/natural_language_controller.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A "window" containing a text input field for collecting text for which named entity recognition will be performed
-/// using Apple Intelligence.
+/// A "window" containing a text input field for collecting text to be lemmatized using Apple Intelligence and a display
+/// for the lemmatized text.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// text input field for collecting text that will be processed by Apple Intelligence for named entity recognition.
-/// Initially, the named entities are unknown (because no text has been submitted for processing). When the user submits
-/// text for named entity recognition, the named entities are displayed in the window.
-class NamedEntityRecognitionWindow extends StatelessWidget {
-  /// Creates an instance of [NamedEntityRecognitionWindow].
-  const NamedEntityRecognitionWindow({
+/// text input field for collecting text that will be lemmatized using Apple Intelligence and a display for the
+/// lemmatized text. The lemmatization is performed by Apple Intelligence.
+class LemmatizationWindow extends StatelessWidget {
+  /// Creates an instance of [LemmatizationWindow].
+  const LemmatizationWindow({
     required this.state,
     super.key,
   });
@@ -25,8 +23,8 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NaturalLanguageCapabilityWindow(
-      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.striped,
-      title: AppLocalizations.of(context)!.naturalLanguageNamedEntityRecognition,
+      displayFormat: NaturalLanguageCapabilityWindowDisplayFormat.fancy,
+      title: AppLocalizations.of(context)!.naturalLanguageLemmatization,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,42 +34,22 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
               horizontal: Inset.medium,
             ),
             child: TextField(
-              controller: state.namedEntityRecognitionTextController,
-              onSubmitted: state.onRecognizeNamedEntities,
+              controller: state.lemmatizeTextController,
+              onSubmitted: state.onLemmatize,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
-                  onTap: state.onRecognizeNamedEntities,
+                  onTap: state.onLemmatize,
                   child: Icon(
-                    Icons.category_outlined,
+                    Icons.carpenter_outlined,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
             ),
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: Inset.medium,
-                thickness: Inset.xxxSmall,
-                indent: Inset.small,
-                endIndent: Inset.small,
-              ),
-              const ColoredBox(
-                color: Colors.white,
-                child: Icon(
-                  Icons.keyboard_double_arrow_down,
-                  size: 18,
-                ),
-              ),
-            ],
-          ),
-
           // A text representation of the identified sentiment
           Padding(
             padding: const EdgeInsets.only(
@@ -80,13 +58,13 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
               right: Inset.medium,
             ),
             child: Text(
-              '${AppLocalizations.of(context)!.naturalLanguageNamedEntityText}:',
+              '${AppLocalizations.of(context)!.naturalLanguageLemmatizedText}:',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
-          if (state.namedEntities != null)
+          if (state.tokenizedText != null)
             Padding(
               padding: const EdgeInsets.only(
                 left: Inset.large,
@@ -94,7 +72,7 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
                 right: Inset.large,
               ),
               child: Text(
-                const JsonEncoder.withIndent('  ').convert(state.namedEntities),
+                state.lemmatizedText.toString(),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),

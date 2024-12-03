@@ -24,6 +24,9 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// A [TextEditingController] for the text field used to collect text to be processed by named entity recognition.
   final TextEditingController namedEntityRecognitionTextController = TextEditingController();
 
+  /// A [TextEditingController] for the text field used to collect text to be lemmatized using Apple Intelligence.
+  final TextEditingController lemmatizeTextController = TextEditingController();
+
   /// A string representation of the language identified by Apple Intelligence for text submitted by the user.
   ///
   /// This value is set when the user submits text for which to identify the language. The value is a string
@@ -42,6 +45,9 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
 
   /// A list of named entities identified by Apple Intelligence for text submitted by the user.
   List<Map<String, String>>? namedEntities;
+
+  /// A list of lemmatized words based on the text submitted by the user.
+  List<String>? lemmatizedText;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -110,6 +116,22 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
 
     setState(() {
       namedEntities = entities;
+    });
+  }
+
+  /// Called when the user submits text to be lemmatized.
+  Future<void> onLemmatize([String? text]) async {
+    final String textInput = text ?? lemmatizeTextController.text;
+
+    debugPrint('Lemmatizing text, "$textInput"');
+
+    // Use the natural language service to lemmatize the text.
+    final List<String>? lemmatized = await _naturalLanguageService.lemmatize(textInput);
+
+    debugPrint('Lemmatized text as $lemmatized');
+
+    setState(() {
+      lemmatizedText = lemmatized;
     });
   }
 

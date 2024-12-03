@@ -15,6 +15,14 @@
   "@naturalLanguageIdentifiedLanguage": {
     "description": "A label for the Apple Intelligence Natural Language Processing identified language services."
   },
+  "naturalLanguageLemmatization": "Lemmatization",
+  "@naturalLanguageLemmatization": {
+    "description": "A label for the Apple Intelligence Natural Language Processing lemmatization services."
+  },
+  "naturalLanguageLemmatizedText": "Lemmatized Text",
+  "@naturalLanguageLemmatizedText": {
+    "description": "A label for the Apple Intelligence Natural Language Processing lemmatized text services."
+  },
   "naturalLanguageNamedEntityRecognition": "Named Entity Recognition",
   "@naturalLanguageNamedEntityRecognition": {
     "description": "A label for the Apple Intelligence Natural Language Processing named entity recognition services."
