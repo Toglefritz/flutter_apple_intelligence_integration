@@ -96,7 +96,14 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         }
     }
     
-    /// Identifies the language of the given text using the pre-trained model.
+    /// Identifies the dominant language of the given text using the built-in Apple Intelligence model.
+    ///
+    /// This method uses the `NLLanguageRecognizer` from Apple's Natural Language framework to determine
+    /// the primary language of the input text. The recognition process analyzes linguistic patterns and
+    /// returns the dominant language as a BCP 47 language tag (e.g., "en" for English, "fr" for French).
+    ///
+    /// - Parameter text: The input text to analyze.
+    /// - Returns: A `String` containing the language code (e.g., "en") or `nil` if the language could not be identified.
     private func identifyLanguage(for text: String) -> String? {
         let recognizer = NLLanguageRecognizer()
         recognizer.processString(text)
@@ -104,13 +111,29 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         return recognizer.dominantLanguage?.rawValue
     }
     
-    /// Identifies the language of the given text using a custom Core ML model.
+    /// Identifies the dominant language of the given text using a custom Core ML model.
+    ///
+    /// This method is intended to support language identification using a developer-provided Core ML model.
+    /// The custom model is expected to handle language detection and output a compatible language code.
+    ///
+    /// - Parameters:
+    ///   - text: The input text to analyze.
+    ///   - modelName: The name of the custom Core ML model to use for language identification.
+    /// - Returns: A `String` containing the language code (e.g., "en") or `nil` if the language could not be identified.
     private func identifyLanguageWithCustomModel(for text: String, modelName: String) -> String? {
         // Load and use the custom Core ML model
         return nil // Placeholder for custom implementation
     }
     
-    /// Analyzes the sentiment of the given text using the pre-trained model.
+    /// Analyzes the sentiment of the given text using the built-in Apple Intelligence model.
+    ///
+    /// Sentiment analysis evaluates the emotional tone conveyed in the input text, assigning a numerical
+    /// score to indicate the sentiment. The score ranges from -1.0 (strongly negative) to 1.0 (strongly positive),
+    /// with 0.0 representing neutral sentiment. This method uses the built-in sentiment model from the
+    /// `NLTagger` class.
+    ///
+    /// - Parameter text: The input text to analyze.
+    /// - Returns: A `Double` representing the sentiment score or `nil` if sentiment analysis fails.
     private func analyzeSentiment(for text: String) -> Double? {
         let tagger = NLTagger(tagSchemes: [.sentimentScore])
         tagger.string = text
@@ -119,12 +142,32 @@ class NaturalLanguageMethodChannelHandler: NSObject {
     }
     
     /// Analyzes the sentiment of the given text using a custom Core ML model.
+    ///
+    /// This method is intended for sentiment analysis using a developer-provided Core ML model. The custom model
+    /// should be designed to output a sentiment score in the range of -1.0 to 1.0.
+    ///
+    /// - Parameters:
+    ///   - text: The input text to analyze.
+    ///   - modelName: The name of the custom Core ML model to use for sentiment analysis.
+    /// - Returns: A `Double` representing the sentiment score or `nil` if the analysis fails.
     private func analyzeSentimentWithCustomModel(for text: String, modelName: String) -> Double? {
         // Load and use the custom Core ML model
         return nil // Placeholder for custom implementation
     }
     
-    /// Tokenizes the input text into words or sentences.
+    /// Tokenizes the input text into smaller components such as words or sentences.
+    ///
+    /// This method uses the `NLTokenizer` class to segment the text into tokens based on the specified unit:
+    /// - `"word"`: Divides the text into individual words and punctuation.
+    /// - `"sentence"`: Divides the text into complete sentences.
+    ///
+    /// Tokenization is a foundational NLP operation used in text preprocessing, enabling downstream tasks
+    /// like sentiment analysis or entity recognition.
+    ///
+    /// - Parameters:
+    ///   - text: The input text to tokenize.
+    ///   - unit: The level of tokenization ("word" or "sentence").
+    /// - Returns: An array of `String` tokens extracted from the input text.
     private func tokenize(text: String, unit: String) -> [String] {
         // Determine the correct tokenization unit based on the `unit` argument
         let tokenizer: NLTokenizer
@@ -142,7 +185,18 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         return tokenizer.tokens(for: text.startIndex..<text.endIndex).map { String(text[$0]) }
     }
     
-    /// Recognizes named entities in the input text.
+    /// Recognizes named entities in the input text and classifies them into predefined categories.
+    ///
+    /// Named Entity Recognition (NER) identifies specific entities within the text, such as:
+    /// - `"PersonalName"`: Names of people.
+    /// - `"PlaceName"`: Geographic locations.
+    /// - `"OrganizationName"`: Names of organizations.
+    ///
+    /// This method uses the `NLTagger` class with the `.nameType` scheme to perform entity recognition.
+    ///
+    /// - Parameter text: The input text to analyze for named entities.
+    /// - Returns: An array of dictionaries, where each dictionary contains:
+    ///   - `"entity"`: The identified entity (e.g., "John").
     private func recognizeEntities(for text: String) -> [[String: String]] {
         let tagger = NLTagger(tagSchemes: [.nameType])
         tagger.string = text
@@ -158,7 +212,17 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         return entities
     }
     
-    /// Lemmatizes the input text.
+    /// Lemmatizes the input text by reducing words to their base or dictionary form.
+    ///
+    /// Lemmatization normalizes words by removing inflections while retaining the grammatical context.
+    /// For example:
+    /// - `"running"` → `"run"`
+    /// - `"better"` → `"good"`
+    ///
+    /// This method uses the `NLTagger` class with the `.lemma` scheme to extract the base forms of words.
+    ///
+    /// - Parameter text: The input text to lemmatize.
+    /// - Returns: An array of `String` containing the lemmatized words from the input text.
     private func lemmatize(for text: String) -> [String] {
         let tagger = NLTagger(tagSchemes: [.lemma])
         tagger.string = text
