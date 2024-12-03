@@ -15,6 +15,14 @@
   "@naturalLanguageIdentifiedLanguage": {
     "description": "A label for the Apple Intelligence Natural Language Processing identified language services."
   },
+  "naturalLanguageNamedEntityRecognition": "Named Entity Recognition",
+  "@naturalLanguageNamedEntityRecognition": {
+    "description": "A label for the Apple Intelligence Natural Language Processing named entity recognition services."
+  },
+  "naturalLanguageNamedEntityText": "Named Entities",
+  "@naturalLanguageNamedEntityText": {
+    "description": "A label for the Apple Intelligence Natural Language Processing named entities services."
+  },
   "naturalLanguageSentimentAnalysis": "Sentiment Analysis",
   "@naturalLanguageSentimentAnalysis": {
     "description": "A label for the Apple Intelligence Natural Language Processing sentiment analysis services."
@@ -24,13 +32,13 @@
     "description": "A label for the Apple Intelligence Natural Language Processing sentiment score services."
   },
   "naturalLanguageTokenization": "Tokenization",
-    "@naturalLanguageTokenization": {
+  "@naturalLanguageTokenization": {
     "description": "A label for the Apple Intelligence Natural Language Processing tokenization services."
-    },
+  },
   "naturalLanguageTokenizedText": "Tokenized Text",
-    "@naturalLanguageTokenizedText": {
-        "description": "A label for the Apple Intelligence Natural Language Processing tokenized text services."
-    },
+  "@naturalLanguageTokenizedText": {
+    "description": "A label for the Apple Intelligence Natural Language Processing tokenized text services."
+  },
   "naturalLanguageWelcomeMessage": "Apple Intelligence Natural Language Processing",
   "nlp": "Natural Language",
   "@nlp": {

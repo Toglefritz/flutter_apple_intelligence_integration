@@ -21,6 +21,9 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// service.
   final TextEditingController tokenizeTextController = TextEditingController();
 
+  /// A [TextEditingController] for the text field used to collect text to be processed by named entity recognition.
+  final TextEditingController namedEntityRecognitionTextController = TextEditingController();
+
   /// A string representation of the language identified by Apple Intelligence for text submitted by the user.
   ///
   /// This value is set when the user submits text for which to identify the language. The value is a string
@@ -36,6 +39,9 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
 
   /// A tokenized string based on the text submitted by the user.
   List<String>? tokenizedText;
+
+  /// A list of named entities identified by Apple Intelligence for text submitted by the user.
+  List<Map<String, String>>? namedEntities;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -88,6 +94,22 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
 
     setState(() {
       tokenizedText = tokenized;
+    });
+  }
+
+  /// Called when the user submits text for which to perform named entity recognition.
+  Future<void> onRecognizeNamedEntities([String? text]) async {
+    final String textInput = text ?? namedEntityRecognitionTextController.text;
+
+    debugPrint('Recognizing named entities for text, $textInput');
+
+    // Use the natural language service to recognize named entities in the text.
+    final List<Map<String, String>>? entities = await _naturalLanguageService.recognizeEntities(textInput);
+
+    debugPrint('Recognized named entities as $entities');
+
+    setState(() {
+      namedEntities = entities;
     });
   }
 

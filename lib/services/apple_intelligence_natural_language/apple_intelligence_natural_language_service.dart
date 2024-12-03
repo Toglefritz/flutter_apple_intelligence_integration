@@ -222,21 +222,78 @@ class AppleIntelligenceNaturalLanguageService {
     }
   }
 
-  /// Performs named entity recognition (NER) on the input text.
+  /// Performs Named Entity Recognition (NER) on the input text.
   ///
-  /// This method identifies and classifies entities (e.g., people, places, organizations) in the text.
+  /// Named Entity Recognition (NER) is a process in Natural Language Processing (NLP) that identifies and classifies
+  /// specific entities within a text into predefined categories such as names of people, organizations, locations, and
+  /// other important terms. This method utilizes Apple's Natural Language framework to perform NER on the provided
+  /// text.
   ///
-  /// - [text]: The input text for entity recognition.
+  /// ### Parameters:
+  /// - [text]: A `String` containing the input text for entity recognition. The text should ideally contain proper
+  /// nouns or structured sentences to achieve meaningful results.
+  ///
+  /// ### Returns:
+  /// - A `List<Map<String, String>>?` where each map represents a recognized entity and its type.
+  ///   Each map contains:
+  ///   - `"entity"`: The identified entity as a string (e.g., `"John"`, `"Apple"`).
+  ///   - `"type"`: The type of the entity (e.g., `"PersonalName"`, `"OrganizationName"`).
+  ///
+  /// - **Special Cases**:
+  ///   - If no entities are recognized, the function returns an empty list.
+  ///   - If entity recognition fails due to an error, the function returns `null`.
+  ///
+  /// ### Default Entity Types:
+  /// The default model provided by Apple Intelligence is capable of recognizing the following types
+  /// of entities:
+  /// - `"PersonalName"`: Names of people (e.g., `"John Doe"`).
+  /// - `"PlaceName"`: Names of geographic locations (e.g., `"Paris"`, `"Mount Everest"`).
+  /// - `"OrganizationName"`: Names of organizations (e.g., `"Apple"`, `"United Nations"`).
+  ///
+  /// ### Purpose:
+  /// Named Entity Recognition is used to extract meaningful information from unstructured text. It is
+  /// commonly used in applications like:
+  /// - Text summarization: Extracting key entities for concise summaries.
+  /// - Search and indexing: Improving relevance based on identified entities.
+  /// - Question answering: Identifying entities to respond to queries.
+  /// - Sentiment analysis: Associating sentiment with specific entities.
+  ///
+  /// ### Errors:
+  /// - If the input text is empty or invalid, the function gracefully returns `null` without throwing an exception.
+  /// - If the platform-specific implementation encounters an issue, the error is logged using `debugPrint`, and `null`
+  /// is returned.
+  ///
+  /// ### Notes:
+  /// - Custom Core ML models can be used for domain-specific NER tasks. For example, identifying product names or
+  /// chemical compounds.
+  /// - The accuracy of NER depends on the quality and context of the input text. Sentences with ambiguous or
+  /// incomplete information may yield less accurate results.
   Future<List<Map<String, String>>?> recognizeEntities(String text) async {
     try {
+      final List<dynamic>? result;
+
       if (customModelName != null) {
-        return await _channel.invokeMethod('recognizeEntitiesWithCustomModel', {
+        result = await _channel.invokeMethod('recognizeEntitiesWithCustomModel', {
           'text': text,
           'modelName': customModelName,
-        }) as List<Map<String, String>>?;
+        });
       } else {
-        return await _channel.invokeMethod('recognizeEntities', {'text': text}) as List<Map<String, String>>?;
+        result = await _channel.invokeMethod('recognizeEntities', {'text': text});
       }
+
+      // Safely map the result to a List<Map<String, String>>.
+      return result?.map((item) {
+        if (item is Map) {
+          return item.map(
+                (key, value) => MapEntry(
+              key.toString(),
+              value.toString(),
+            ),
+          );
+        }
+
+        throw Exception('Invalid item in result: $item');
+      }).toList();
     } catch (e) {
       debugPrint('Entity recognition failed with error, $e');
 

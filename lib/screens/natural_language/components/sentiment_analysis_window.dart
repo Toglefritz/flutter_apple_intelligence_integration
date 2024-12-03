@@ -65,8 +65,8 @@ class SentimentAnalysisWindow extends StatelessWidget {
                 state.identifiedSentiment == null
                     ? Theme.of(context).primaryColor.withOpacity(0.5)
                     : state.identifiedSentiment! > 0
-                        ? Colors.green
-                        : Colors.red,
+                        ? Colors.green[800]!
+                        : Colors.red[800]!,
               ),
             ),
           ),
