@@ -1,3 +1,4 @@
+import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -44,25 +45,46 @@ class AppleIntelligenceVisionService {
   /// Internal constructor for handling initialization with or without a custom model.
   AppleIntelligenceVisionService._internal({this.customModelName});
 
-  /// Classifies an image into categories.
-  ///
-  /// If a custom Core ML model is provided, it will be used for classification. Otherwise, the built-in Vision model
-  /// will be used.
+  /// Classifies an image using the Apple Intelligence Vision services.
   ///
   /// - [imagePath]: The file path of the image to classify.
-  Future<String?> classifyImage(String imagePath) async {
+  /// - Returns: A list of classification results where each result is a map with:
+  ///   - `identifier`: The label for the classification.
+  ///   - `confidence`: The confidence score as a percentage.
+  /// Classifies an image using the Apple Intelligence Vision services.
+  ///
+  /// - [imagePath]: The file path of the image to classify.
+  /// - Returns: A list of [ImageClassificationResult] objects containing the
+  ///   label (`identifier`) and confidence score (`confidence`) for each classification.
+  Future<List<ImageClassificationResult>?> classifyImage(String imagePath) async {
     try {
-      // If this service was set up with a custom model, use it for classification.
-      if (customModelName != null) {
-        return await _channel.invokeMethod('classifyImageWithCustomModel', {
-          'imagePath': imagePath,
-          'modelName': customModelName,
-        });
-      }
-      // Otherwise, use the default Vision model.
-      else {
-        return await _channel.invokeMethod('classifyImage', {'imagePath': imagePath});
-      }
+      // Prepare arguments for the Method Channel call
+      final Map<String, dynamic> arguments = {
+        'imagePath': imagePath,
+        if (customModelName != null) 'modelName': customModelName,
+      };
+
+      // Invoke the Method Channel and cast the result
+      final List<dynamic>? result = await _channel.invokeMethod<List<dynamic>>(
+        customModelName != null ? 'classifyImageWithCustomModel' : 'classifyImage',
+        arguments,
+      );
+
+      // Convert the result to a List<ImageClassificationResult>
+      final List<ImageClassificationResult>? results = result?.map((item) {
+        if (item is Map<Object?, Object?>) {
+          // Convert Map<Object?, Object?> to Map<String, dynamic>
+          final Map<String, dynamic> convertedMap = item.map(
+                (key, value) => MapEntry(key.toString(), value),
+          );
+
+          return ImageClassificationResult.fromMap(convertedMap);
+        }
+
+        throw Exception('Unexpected item format: $item');
+      }).toList();
+
+      return results;
     } catch (e) {
       debugPrint('Image classification failed with error, $e');
 

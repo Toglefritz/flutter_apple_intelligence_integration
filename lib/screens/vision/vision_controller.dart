@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/vision/vision_route.dart';
 import 'package:demo_app/screens/vision/vision_view.dart';
 import 'package:demo_app/services/apple_intelligence_vision/apple_intelligence_vision_service.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,11 @@ class VisionController extends State<VisionRoute> {
   /// The example image selected by the user for classification.
   VisionExampleImage? selectedExampleImage;
 
-  /// A string representation of the image classification result.
+  /// A list of objects representing the result of the image classification result.
   ///
-  /// This value is set when the user requests classification of an image.
-  String? imageClassification;
+  /// This value is set when the user requests classification of an image. Each item in this list is an instance of
+  /// [ImageClassificationResult] containing the label and confidence score for the classification.
+  List<ImageClassificationResult>? imageClassification;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -72,13 +74,35 @@ class VisionController extends State<VisionRoute> {
     final String imagePath = await selectedExampleImage!.getAbsolutePath();
 
     // Use the natural language service to identify the language of the text.
-    final String? classification = await _visionService.classifyImage(imagePath);
+    final List<ImageClassificationResult>? classification = await _visionService.classifyImage(imagePath);
 
     debugPrint('Classified image as "$classification"');
 
     setState(() {
       imageClassification = classification;
     });
+  }
+
+  /// Returns a "pretty print" version of the image classification result for display in the UI.
+  ///
+  /// The [onClassifyImage] function stores the classification result in the [imageClassification] state variable.
+  /// This function converts the classification result into a human-readable format for display in the UI, excluding
+  /// any results with a confidence score of 0.0.
+  String? get prettyPrintImageClassification {
+    if (imageClassification == null) {
+      return null;
+    }
+
+    // Filter results with confidence > 0.01
+    final Iterable<ImageClassificationResult> filteredResults = imageClassification!
+        .where((ImageClassificationResult result) => result.confidence > 0.01);
+
+    // Convert the results to a human-readable string
+    final String prettyPrint = filteredResults
+        .map((ImageClassificationResult result) => '${result.identifier} (${result.confidence.toStringAsFixed(2)})')
+        .join(',\n');
+
+    return prettyPrint;
   }
 
   @override

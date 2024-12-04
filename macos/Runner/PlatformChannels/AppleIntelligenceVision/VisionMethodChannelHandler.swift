@@ -133,54 +133,67 @@ class VisionMethodChannelHandler: NSObject {
     /// - If the image cannot be loaded, an error message is printed, and `nil` is returned.
     /// - If the model cannot be initialized, an error message is printed, and `nil` is returned.
     /// - If no classification results are found, a fallback error message is printed, and `nil` is returned.
-    private func classifyImage(at imagePath: String) -> String? {
+    private func classifyImage(at imagePath: String) -> [[String: Any]]? {
         // Ensure the image exists at the specified path
         let imageURL = URL(fileURLWithPath: imagePath)
         guard let ciImage = CIImage(contentsOf: imageURL) else {
             print("Error: Unable to load image from the provided path: \(imagePath)")
+            
             return nil
         }
-        
+
         // Load the Core ML model with a default configuration
         let configuration = MLModelConfiguration()
         guard let mobileNetV2 = try? MobileNetV2(configuration: configuration) else {
             print("Error: Unable to initialize MobileNetV2 with the given configuration.")
+            
             return nil
         }
-        
+
         // Create a Vision Core ML model
         guard let mlModel = try? VNCoreMLModel(for: mobileNetV2.model) else {
             print("Error: Unable to load the Vision model.")
+            
             return nil
         }
-        
-        // Variable to store the classification result
-        var classificationResult: String? = nil
-        
+
+        // Variable to store the classification results
+        var classificationResults: [[String: Any]] = []
+
         // Create a classification request
         let request = VNCoreMLRequest(model: mlModel) { request, error in
             if let error = error {
                 print("Error during image classification: \(error.localizedDescription)")
+                
                 return
             }
-            guard let results = request.results as? [VNClassificationObservation], let bestResult = results.first else {
+            guard let results = request.results as? [VNClassificationObservation] else {
                 print("Error: No classification results found.")
+                
                 return
             }
-            classificationResult = "\(bestResult.identifier) (\(bestResult.confidence * 100)%)"
+
+            // Populate the classification results
+            classificationResults = results.map { observation in
+                [
+                    "identifier": observation.identifier,
+                    "confidence": observation.confidence
+                ]
+            }
         }
-        
+
         // Perform the image classification request
         let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
         do {
             try handler.perform([request])
         } catch {
             print("Error performing image classification: \(error.localizedDescription)")
+            
             return nil
         }
-        
-        // Return the classification result
-        return classificationResult
+
+        // Return the classification results
+        return classificationResults
     }
     
     /// Classifies an image using a custom Core ML model.

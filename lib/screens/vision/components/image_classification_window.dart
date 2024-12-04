@@ -92,23 +92,28 @@ class ImageClassificationWindow extends StatelessWidget {
               right: Inset.medium,
               bottom: Inset.xSmall,
             ),
-            child: RichText(
-              text: TextSpan(
-                text: '${AppLocalizations.of(context)!.visionImageClassification}: ',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                children: [
-                  TextSpan(
-                    text: state.imageClassification,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+            child: Text(
+              '${AppLocalizations.of(context)!.visionImageClassification}: ',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).primaryColor,
                   ),
-                ],
-              ),
             ),
           ),
+          if (state.prettyPrintImageClassification != null)
+            Padding(
+              padding: const EdgeInsets.only(
+                top: Inset.xxSmall,
+                left: Inset.medium,
+                right: Inset.medium,
+                bottom: Inset.xSmall,
+              ),
+              child: Text(
+                state.prettyPrintImageClassification!,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
         ],
       ),
     );
