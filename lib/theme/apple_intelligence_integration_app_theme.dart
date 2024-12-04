@@ -31,5 +31,16 @@ class AppleIntelligenceIntegrationAppTheme {
       selectionColor: Colors.black26,
       selectionHandleColor: Colors.black,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shadowColor: Colors.black,
+        elevation: 0.0,
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(),
+        ),
+        backgroundColor: Colors.white,
+        overlayColor: Colors.transparent,
+      ),
+    ),
   );
 }

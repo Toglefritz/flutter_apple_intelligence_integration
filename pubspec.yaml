@@ -13,6 +13,10 @@ dependencies:
     sdk: flutter
   # Used for date formatting.
   intl: ^0.19.0
+  # Plugin for getting commonly used locations on host platform. In this example app, it is used
+  # to get the path to the app's documents directory in order to provide images to the Swift
+  # Vision plugin.
+  path_provider: ^2.1.5
 
 dev_dependencies:
   # Provides the Flutter Localizations package.
@@ -29,6 +33,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/vision_examples/
 
   fonts:
     - family: Chicago

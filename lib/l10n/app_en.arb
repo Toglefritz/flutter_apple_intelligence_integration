@@ -68,6 +68,23 @@
   "@vision": {
     "description": "A label for the Apple Intelligence vision services."
   },
+  "visionClassifySubmit": "Classify",
+  "@visionClassifySubmit": {
+    "description": "The text for a button used to submit an image for classification."
+  },
+  "visionClassifyImage": "Classify Image",
+  "@visionClassifyImage": {
+    "description": "A label for the Apple Intelligence Vision classify image services."
+  },
+  "visionImageClassification": "Image Classification",
+  "@visionImageClassification": {
+    "description": "A label for the Apple Intelligence Vision image classification services."
+  },
+  "visionSelectExampleImage": "Select an example image",
+  "@visionSelectExampleImage": {
+    "description": "A label for the Apple Intelligence Vision select example image services."
+  },
+  "visionWelcomeMessage": "Apple Intelligence Vision Services",
   "welcomeMessage": "Welcome to the Apple Intelligence Integration Demo.",
   "@welcomeMessage": {
     "description": "A welcome message for the app."

@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// A container including a welcome message.
 ///
 /// This widget is a container designed to look like a window in 1980s versions of MacOS. The window includes a welcome
-/// message for the user. The window can be dragged to change its position on the screen.
+/// message for the user.
 class NaturalLanguageWelcomeWindow extends StatelessWidget {
   /// Creates a new instance of [NaturalLanguageWelcomeWindow].
   const NaturalLanguageWelcomeWindow({

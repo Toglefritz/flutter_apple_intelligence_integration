@@ -24,6 +24,7 @@ class PlatformChannelRegistrar {
     /// Registers all Method Channel handlers.
     func registerHandlers() {
         registerNaturalLanguageHandler()
+        registerVisionHandler()
         
         // TODO Add other handlers here
     }
@@ -31,5 +32,10 @@ class PlatformChannelRegistrar {
     /// Registers the Natural Language Method Channel handler.
     private func registerNaturalLanguageHandler() {
         _ = NaturalLanguageMethodChannelHandler(messenger: messenger)
+    }
+    
+    /// Registers the Vision Method Channel handler.
+    private func registerVisionHandler() {
+        _ = VisionMethodChannelHandler(messenger: messenger)
     }
 }
