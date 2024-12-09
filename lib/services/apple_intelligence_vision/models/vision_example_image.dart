@@ -22,7 +22,16 @@ enum VisionExampleImage {
   natureScene._('assets/vision_examples/vision_example_nature_scene.png'),
 
   /// An image showing a place setting for a meal, with a variety of objects.
-  foodScene._('assets/vision_examples/vision_example_food_scene.png');
+  foodScene._('assets/vision_examples/vision_example_food_scene.png'),
+
+  /// An image of a highway road sign.
+  roadSign._('assets/vision_examples/vision_example_road_sign.png'),
+
+  /// An image of a book cover.
+  bookCover._('assets/vision_examples/vision_example_book_cover.png'),
+
+  /// An image of a coffee shop menu.
+  coffeeMenu._('assets/vision_examples/vision_example_coffee_shop_menu.png');
 
   /// The file path of the image.
   final String path;

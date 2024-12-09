@@ -4,6 +4,7 @@ import 'package:demo_app/services/apple_intelligence_vision/apple_intelligence_v
 import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/text_recognition_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,9 @@ class VisionController extends State<VisionRoute> {
 
   /// The example image selected by the user for object detection.
   VisionExampleImage? selectedObjectDetectionExampleImage;
+
+  /// The example image selected by the user for text recognition.
+  VisionExampleImage? selectedTextRecognitionExampleImage;
 
   /// A list of objects representing the result of the image classification result.
   ///
@@ -34,6 +38,9 @@ class VisionController extends State<VisionRoute> {
   /// which object detection was most recently perform, separately from the selected image, which may change as the user
   /// selects different example images.
   VisionExampleImage? objectDetectionImage;
+
+  /// The result of text recognition for the selected image.
+  List<TextRecognitionResult>? textRecognitionResult;
 
   /// Called when the back button is tapped.
   void onBack() {
@@ -57,6 +64,8 @@ class VisionController extends State<VisionRoute> {
         selectedClassificationExampleImage = image;
       } else if (service == AppleIntelligenceVisionCapability.objectDetection) {
         selectedObjectDetectionExampleImage = image;
+      } else if (service == AppleIntelligenceVisionCapability.textRecognition) {
+        selectedTextRecognitionExampleImage = image;
       }
     });
   }
@@ -137,6 +146,29 @@ class VisionController extends State<VisionRoute> {
     });
   }
 
+  /// Handles the process of recognizing text in a user-selected image.
+  Future<void> onRecognizeText() async {
+    if (selectedTextRecognitionExampleImage == null) {
+      debugPrint('No example image selected');
+
+      return;
+    }
+
+    debugPrint('Performing text recognition');
+
+    // Get the absolute file path of the selected example image
+    final String imagePath = await selectedTextRecognitionExampleImage!.getAbsolutePath();
+
+    // Use the natural language service to identify the language of the text.
+    final List<TextRecognitionResult>? result = await _visionService.recognizeText(imagePath);
+
+    debugPrint('Recognized text as "$result"');
+
+    setState(() {
+      textRecognitionResult = result;
+    });
+  }
+
   /// Returns a "pretty print" version of the image classification result for display in the UI.
   ///
   /// The [onClassifyImage] function stores the classification result in the [imageClassification] state variable.
@@ -171,6 +203,23 @@ class VisionController extends State<VisionRoute> {
     // Convert the results to a human-readable string
     final String prettyPrint = objectDetection!
         .map((ObjectDetectionResult result) => '${result.identifier} (${result.boundingBox})')
+        .join(',\n');
+
+    return prettyPrint;
+  }
+
+  /// Returns the "pretty print" version of the text recognition result for display in the UI.
+  ///
+  /// The [onRecognizeText] function stores the text recognition result in the [textRecognitionResult] state variable.
+  /// This function converts the text recognition result into a human-readable format for display in the UI.
+  String? get prettyPrintTextRecognition {
+    if (textRecognitionResult == null) {
+      return null;
+    }
+
+    // Convert the results to a human-readable string. Only the highest confidence results will be included.
+    final String prettyPrint = textRecognitionResult!
+        .map((TextRecognitionResult result) => result.text)
         .join(',\n');
 
     return prettyPrint;

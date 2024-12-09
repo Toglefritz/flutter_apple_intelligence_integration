@@ -289,11 +289,140 @@ class VisionMethodChannelHandler: NSObject {
     
     /// Recognizes text in an image.
     ///
-    /// - Parameter imagePath: The file path of the image for text recognition.
-    /// - Returns: A `String` containing the recognized text or `nil` if recognition fails.
-    private func recognizeText(at imagePath: String) -> String? {
-        // Implementation for text recognition using Vision framework
-        return "Placeholder: Recognized text"
+    /// This function uses Apple's Vision framework to perform text recognition on the provided image.
+    /// The text recognition process identifies text regions in the image, extracts the recognized text,
+    /// and provides the results, including multiple recognition candidates for each text region.
+    ///
+    /// ## Parameters
+    ///
+    /// - `imagePath`: The file path of the image for text recognition. The image must be accessible
+    ///   at the specified path and in a supported format.
+    ///
+    /// ## Returns
+    ///
+    /// An array of dictionaries, where each dictionary represents a recognized text region. Each dictionary contains:
+    /// - `text`: The most confident recognized text for the region.
+    /// - `candidates`: An array of all recognition candidates for the region, ordered by confidence.
+    /// - `boundingBox`: The bounding box of the text region, represented as normalized coordinates
+    ///   `[x, y, width, height]` relative to the image size.
+    ///
+    /// The format returned by the Method Channel is:
+    ///
+    /// ```json
+    /// [
+    ///   {
+    ///     "text": "Downtown",
+    ///     "candidates": ["Downtown", "Dowmown", "Downtowned"],
+    ///     "boundingBox": [0.1, 0.2, 0.5, 0.1]
+    ///   },
+    ///   {
+    ///     "text": "3 Miles",
+    ///     "candidates": ["3 Miles", "3Mile", "Three Miles"],
+    ///     "boundingBox": [0.1, 0.4, 0.4, 0.1]
+    ///   }
+    /// ]
+    /// ```
+    ///
+    /// ## Coordinate System
+    ///
+    /// The bounding box coordinates use a bottom-left origin system where:
+    /// - `x` and `y` are the normalized coordinates of the bottom-left corner of the bounding box.
+    /// - `width` and `height` represent the dimensions of the bounding box relative to the image size.
+    ///
+    /// ## Error Handling
+    ///
+    /// If the image cannot be loaded or the text recognition process fails, the function returns `nil`
+    /// and logs an error message.
+    ///
+    /// ## Example
+    ///
+    /// Input image:
+    /// A road sign with the text:
+    ///
+    /// ```text
+    /// EXIT 25
+    /// Downtown 3 Miles
+    /// ```
+    ///
+    /// Output:
+    ///
+    /// ```json
+    /// [
+    ///   {
+    ///     "text": "EXIT 25",
+    ///     "candidates": ["EXIT 25", "EXT 25", "EXIT2 5"],
+    ///     "boundingBox": [0.1, 0.6, 0.8, 0.2]
+    ///   },
+    ///   {
+    ///     "text": "Downtown 3 Miles",
+    ///     "candidates": ["Downtown 3 Miles", "Downtown 3Mile", "Downtown 3Miles"],
+    ///     "boundingBox": [0.1, 0.4, 0.8, 0.2]
+    ///   }
+    /// ]
+    /// ```
+    private func recognizeText(at imagePath: String) -> [[String: Any]]? {
+        // Ensure the image exists at the specified path
+        let imageURL = URL(fileURLWithPath: imagePath)
+        guard let ciImage = CIImage(contentsOf: imageURL) else {
+            print("Error: Unable to load image from the provided path: \(imagePath)")
+            return nil
+        }
+
+        // Variable to store the recognition results
+        var recognitionResults: [[String: Any]] = []
+
+        // Create a request for text recognition
+        let request = VNRecognizeTextRequest { request, error in
+            if let error = error {
+                print("Error during text recognition: \(error.localizedDescription)")
+                return
+            }
+
+            // Extract the recognized text from the results
+            guard let results = request.results as? [VNRecognizedTextObservation] else {
+                print("Error: No text recognition results found.")
+                return
+            }
+
+            // Populate the recognition results
+            recognitionResults = results.map { observation in
+                // Get the top text candidate
+                let topCandidate = observation.topCandidates(1).first?.string ?? ""
+
+                // Get all text candidates
+                let candidates = observation.topCandidates(10).map { $0.string }
+
+                // Get the bounding box
+                let boundingBox = [
+                    observation.boundingBox.origin.x,
+                    observation.boundingBox.origin.y,
+                    observation.boundingBox.size.width,
+                    observation.boundingBox.size.height
+                ]
+
+                return [
+                    "text": topCandidate,
+                    "candidates": candidates,
+                    "boundingBox": boundingBox
+                ]
+            }
+        }
+
+        // Configure the request
+        request.recognitionLevel = .accurate // Use .fast for faster but less accurate results
+        request.usesLanguageCorrection = true
+
+        // Perform the text recognition request
+        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+        do {
+            try handler.perform([request])
+        } catch {
+            print("Error performing text recognition: \(error.localizedDescription)")
+            return nil
+        }
+
+        // Return the recognition results
+        return recognitionResults.isEmpty ? nil : recognitionResults
     }
     
     /// Detects faces in an image.

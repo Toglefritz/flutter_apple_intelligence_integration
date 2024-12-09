@@ -1,5 +1,6 @@
 import 'package:demo_app/screens/vision/components/image_classification_window.dart';
 import 'package:demo_app/screens/vision/components/object_detection_window.dart';
+import 'package:demo_app/screens/vision/components/text_recognition_window.dart';
 import 'package:demo_app/screens/vision/components/vision_welcome_window.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
 import 'package:demo_app/screens/vision/vision_route.dart';
@@ -54,6 +55,13 @@ class VisionView extends StatelessWidget {
                       horizontal: Inset.large,
                     ),
                     child: ObjectDetectionWindow(state: state),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: Inset.large,
+                      vertical: Inset.medium,
+                    ),
+                    child: TextRecognitionWindow(state: state),
                   ),
                 ],
               ),

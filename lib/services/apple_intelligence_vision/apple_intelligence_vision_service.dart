@@ -1,5 +1,6 @@
 import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/text_recognition_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -189,15 +190,76 @@ class AppleIntelligenceVisionService {
 
   /// Performs text recognition on an image.
   ///
-  /// This method uses the Vision framework to recognize and extract text from an image.
+  /// This method uses the Vision framework to recognize text in the provided image. It communicates
+  /// with the native platform (iOS) via a Method Channel and returns the full set of text recognition
+  /// results, including all recognition candidates for each text region and their bounding boxes.
   ///
-  /// - [imagePath]: The file path of the image for text recognition.
-  Future<String?> recognizeText(String imagePath) async {
+  /// ## Parameters
+  /// - [imagePath]: The file path of the image for text recognition. The image must be accessible
+  ///   at the specified path.
+  ///
+  /// ## Returns
+  /// A `Future` that resolves to a list of `TextRecognitionResult` objects, where each object represents:
+  /// - `text`: The most confident recognized text for the region.
+  /// - `candidates`: A list of all recognition candidates for the region, ordered by confidence.
+  /// - `boundingBox`: The bounding box of the text region as a list of four normalized values:
+  ///   - **`x`**: The horizontal position of the bottom-left corner of the bounding box, relative to the image width.
+  ///   - **`y`**: The vertical position of the bottom-left corner of the bounding box, relative to the image height.
+  ///   - **`width`**: The width of the bounding box, as a fraction of the image width.
+  ///   - **`height`**: The height of the bounding box, as a fraction of the image height.
+  ///
+  /// ## Example Return Value
+  /// If the image contains a road sign with the text:
+  ///
+  /// ```text
+  /// EXIT 25
+  /// Downtown 3 Miles
+  /// ```
+  ///
+  /// The method might return:
+  ///
+  /// ```dart
+  /// [
+  ///   TextRecognitionResult(
+  ///     text: 'EXIT 25',
+  ///     candidates: ['EXIT 25', 'EXT 25', 'EXIT2 5'],
+  ///     boundingBox: [0.1, 0.6, 0.8, 0.2],
+  ///   ),
+  ///   TextRecognitionResult(
+  ///     text: 'Downtown 3 Miles',
+  ///     candidates: ['Downtown 3 Miles', 'Downtown 3Mile', 'Downtown 3Miles'],
+  ///     boundingBox: [0.1, 0.4, 0.8, 0.2],
+  ///   ),
+  /// ]
+  /// ```
+  ///
+  /// ## Error Handling
+  /// If the text recognition process fails (e.g., due to an invalid image path), the function logs the
+  /// error and returns `null`.
+  Future<List<TextRecognitionResult>?> recognizeText(String imagePath) async {
     try {
-      return await _channel.invokeMethod('recognizeText', {'imagePath': imagePath});
+      // Call the Method Channel
+      final List<dynamic>? result = await _channel.invokeMethod<List<dynamic>>(
+        'recognizeText',
+        {'imagePath': imagePath},
+      );
+
+      // Parse the result into a list of TextRecognitionResult objects
+      final List<TextRecognitionResult>? results = result?.map((item) {
+        if (item is Map<Object?, Object?>) {
+          // Convert Map<Object?, Object?> to Map<String, dynamic>
+          final Map<String, dynamic> convertedMap = item.map(
+            (key, value) => MapEntry(key.toString(), value),
+          );
+          return TextRecognitionResult.fromMap(convertedMap);
+        }
+
+        throw Exception('Unexpected item format: $item');
+      }).toList();
+
+      return results;
     } catch (e) {
       debugPrint('Text recognition failed with error, $e');
-
       return null;
     }
   }

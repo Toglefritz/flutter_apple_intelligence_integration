@@ -84,6 +84,14 @@
   "@visionSelectExampleImage": {
     "description": "A label for the Apple Intelligence Vision select example image services."
   },
+  "visionTextRecognition": "Text Recognition",
+  "@visionTextRecognition": {
+    "description": "A label for the Apple Intelligence Vision text recognition services."
+  },
+  "visionTextRecognitionSubmit": "Recognize Text",
+  "@visionTextRecognitionSubmit": {
+    "description": "The text for a button used to submit an image for text recognition."
+  },
   "visionObjectDetection": "Object Detection",
   "@visionObjectDetection": {
     "description": "A label for the Apple Intelligence Vision object detection services."
