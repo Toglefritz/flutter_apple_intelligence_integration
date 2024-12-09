@@ -6,14 +6,23 @@ import 'package:path_provider/path_provider.dart';
 /// A series of example images to be used for demonstrating the capabilities of the Apple Intelligence Vision
 /// services.
 enum VisionExampleImage {
-  /// An image of an apple.
-  apple._('assets/vision_examples/vision_example_apple.png'),
+  /// An image of a flower.
+  flower._('assets/vision_examples/vision_example_flower.png'),
 
   /// An image of a dog.
   dog._('assets/vision_examples/vision_example_dog.png'),
 
   /// An image of a chair.
-  chair._('assets/vision_examples/vision_example_chair.png');
+  chair._('assets/vision_examples/vision_example_chair.png'),
+
+  /// An image of a desk with a variety of objects.
+  deskScene._('assets/vision_examples/vision_example_desk_scene.png'),
+
+  /// An image of a natural scene showing a variety of objects.
+  natureScene._('assets/vision_examples/vision_example_nature_scene.png'),
+
+  /// An image showing a place setting for a meal, with a variety of objects.
+  foodScene._('assets/vision_examples/vision_example_food_scene.png');
 
   /// The file path of the image.
   final String path;

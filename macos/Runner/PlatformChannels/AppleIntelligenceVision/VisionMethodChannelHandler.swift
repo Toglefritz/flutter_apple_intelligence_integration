@@ -210,10 +210,70 @@ class VisionMethodChannelHandler: NSObject {
     /// Detects objects in an image using the built-in Vision model.
     ///
     /// - Parameter imagePath: The file path of the image for object detection.
-    /// - Returns: An array of dictionaries with detected objects and their bounding boxes.
+    /// - Returns: An array of dictionaries, where each dictionary contains:
+    ///   - "object": The label of the detected object.
+    ///   - "boundingBox": The bounding box of the object as an array [x, y, width, height].
     private func detectObjects(at imagePath: String) -> [[String: Any]] {
-        // Implementation for object detection using Vision framework
-        return [["object": "PlaceholderObject", "boundingBox": [0, 0, 1, 1]]]
+        // Ensure the image exists at the specified path
+        let imageURL = URL(fileURLWithPath: imagePath)
+        guard let ciImage = CIImage(contentsOf: imageURL) else {
+            print("Error: Unable to load image from the provided path: \(imagePath)")
+            return []
+        }
+
+        // Load the Core ML model for object detection
+        let configuration = MLModelConfiguration()
+        guard let objectDetectionModel = try? VNCoreMLModel(for: YOLOv3(configuration: configuration).model) else {
+            print("Error: Unable to initialize object detection model.")
+            return []
+        }
+
+        // Variable to store the detection results
+        var detectedObjects: [[String: Any]] = []
+
+        // Create a Vision Core ML request
+        let request = VNCoreMLRequest(model: objectDetectionModel) { request, error in
+            if let error = error {
+                print("Error during object detection: \(error.localizedDescription)")
+                return
+            }
+
+            // Parse the results
+            guard let results = request.results as? [VNRecognizedObjectObservation] else {
+                print("Error: No object detection results found.")
+                return
+            }
+
+            // Map the results to the expected format
+            detectedObjects = results.map { observation in
+                let label = observation.labels.first?.identifier ?? "Unknown"
+                let boundingBox = observation.boundingBox
+
+                // Convert bounding box to an array format [x, y, width, height]
+                let bboxArray = [
+                    boundingBox.origin.x,
+                    boundingBox.origin.y,
+                    boundingBox.size.width,
+                    boundingBox.size.height
+                ]
+
+                return [
+                    "object": label,
+                    "boundingBox": bboxArray
+                ]
+            }
+        }
+
+        // Perform the object detection request
+        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+        do {
+            try handler.perform([request])
+        } catch {
+            print("Error performing object detection: \(error.localizedDescription)")
+            return []
+        }
+
+        return detectedObjects
     }
     
     /// Detects objects in an image using a custom Core ML model.

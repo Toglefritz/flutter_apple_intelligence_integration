@@ -1,7 +1,9 @@
 import 'package:demo_app/screens/vision/vision_route.dart';
 import 'package:demo_app/screens/vision/vision_view.dart';
 import 'package:demo_app/services/apple_intelligence_vision/apple_intelligence_vision_service.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,10 @@ class VisionController extends State<VisionRoute> {
   final AppleIntelligenceVisionService _visionService = AppleIntelligenceVisionService();
 
   /// The example image selected by the user for classification.
-  VisionExampleImage? selectedExampleImage;
+  VisionExampleImage? selectedClassificationExampleImage;
+
+  /// The example image selected by the user for object detection.
+  VisionExampleImage? selectedObjectDetectionExampleImage;
 
   /// A list of objects representing the result of the image classification result.
   ///
@@ -19,18 +24,40 @@ class VisionController extends State<VisionRoute> {
   /// [ImageClassificationResult] containing the label and confidence score for the classification.
   List<ImageClassificationResult>? imageClassification;
 
+  /// A list of objects representing the result of the object detection result.
+  ///
+  /// This value is set when the user requests object detection of an image. Each item in this list is an instance of
+  /// [ObjectDetectionResult] containing an identifier for the result and the bounding box for the detected object.
+  List<ObjectDetectionResult>? objectDetection;
+
+  /// The [VisionExampleImage] corresponding to the [objectDetection] result. This allows tracking of the image for
+  /// which object detection was most recently perform, separately from the selected image, which may change as the user
+  /// selects different example images.
+  VisionExampleImage? objectDetectionImage;
+
   /// Called when the back button is tapped.
   void onBack() {
     // Pop the current route off the navigator and go back to the HomeRoute.
     Navigator.of(context).pop();
   }
 
-  /// Called when the user selects an example image for classification.
-  void onSelectExampleImage(VisionExampleImage image) {
+  /// Called when the user selects an example image for one of the windows providing demonstrations of the vision
+  /// capabilities of Apple Intelligence.
+  ///
+  /// This function updates the state to reflect the selected example image. The provided
+  /// [AppleIntelligenceVisionCapability] determines the demonstration for which an image was selected.
+  void onSelectExampleImage({
+    required VisionExampleImage image,
+    required AppleIntelligenceVisionCapability service,
+  }) {
     debugPrint('Selected example image: $image');
 
     setState(() {
-      selectedExampleImage = image;
+      if (service == AppleIntelligenceVisionCapability.classification) {
+        selectedClassificationExampleImage = image;
+      } else if (service == AppleIntelligenceVisionCapability.objectDetection) {
+        selectedObjectDetectionExampleImage = image;
+      }
     });
   }
 
@@ -62,7 +89,7 @@ class VisionController extends State<VisionRoute> {
   /// - If an image is successfully classified, the classification result (e.g., "Dog") is stored in
   ///   the `imageClassification` state variable and can be used by the UI.
   Future<void> onClassifyImage() async {
-    if (selectedExampleImage == null) {
+    if (selectedClassificationExampleImage == null) {
       debugPrint('No example image selected');
 
       return;
@@ -71,15 +98,42 @@ class VisionController extends State<VisionRoute> {
     debugPrint('Performing image classification');
 
     // Get the absolute file path of the selected example image
-    final String imagePath = await selectedExampleImage!.getAbsolutePath();
+    final String imagePath = await selectedClassificationExampleImage!.getAbsolutePath();
 
     // Use the natural language service to identify the language of the text.
     final List<ImageClassificationResult>? classification = await _visionService.classifyImage(imagePath);
 
-    debugPrint('Classified image as "$classification"');
+    debugPrint('Classified image as "${classification?.first.identifier}: ${classification?.first.confidence}"');
 
     setState(() {
       imageClassification = classification;
+    });
+  }
+
+  /// Handles the process of detecting objects in a user-selected image.
+  // TODO(Scott): Add documentation
+  Future<void> onDetectObjects() async {
+    if (selectedObjectDetectionExampleImage == null) {
+      debugPrint('No example image selected');
+
+      return;
+    } else {
+      // Store the image for which object detection is being performed
+      objectDetectionImage = selectedObjectDetectionExampleImage;
+    }
+
+    debugPrint('Performing object detection');
+
+    // Get the absolute file path of the selected example image
+    final String imagePath = await selectedObjectDetectionExampleImage!.getAbsolutePath();
+
+    // Use the natural language service to identify the language of the text.
+    final List<ObjectDetectionResult>? detection = await _visionService.detectObjects(imagePath);
+
+    debugPrint('Detected objects as "$detection"');
+
+    setState(() {
+      objectDetection = detection;
     });
   }
 
@@ -94,12 +148,29 @@ class VisionController extends State<VisionRoute> {
     }
 
     // Filter results with confidence > 0.01
-    final Iterable<ImageClassificationResult> filteredResults = imageClassification!
-        .where((ImageClassificationResult result) => result.confidence > 0.01);
+    final Iterable<ImageClassificationResult> filteredResults =
+        imageClassification!.where((ImageClassificationResult result) => result.confidence > 0.01);
 
     // Convert the results to a human-readable string
     final String prettyPrint = filteredResults
         .map((ImageClassificationResult result) => '${result.identifier} (${result.confidence.toStringAsFixed(2)})')
+        .join(',\n');
+
+    return prettyPrint;
+  }
+
+  /// Returns a "pretty print" version of the object detection result for display in the UI.
+  ///
+  /// The [onDetectObjects] function stores the object detection result in the [objectDetection] state variable.
+  /// This function converts the object detection result into a human-readable format for display in the UI.
+  String? get prettyPrintObjectDetection {
+    if (objectDetection == null) {
+      return null;
+    }
+
+    // Convert the results to a human-readable string
+    final String prettyPrint = objectDetection!
+        .map((ObjectDetectionResult result) => '${result.identifier} (${result.boundingBox})')
         .join(',\n');
 
     return prettyPrint;

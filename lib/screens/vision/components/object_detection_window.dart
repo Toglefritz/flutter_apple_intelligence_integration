@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/components/brutalist_button.dart';
 import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
+import 'package:demo_app/screens/vision/components/object_detection_overlay.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
@@ -8,14 +9,14 @@ import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A "window" containing a series of example images for which the user can request classification.
+/// A "window" containing a series of example images for which the user can request object detection.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for classification using Apple Intelligence. The user can click on an
-/// image to request classification.
-class ImageClassificationWindow extends StatelessWidget {
-  /// Creates an instance of [ImageClassificationWindow].
-  const ImageClassificationWindow({
+/// selection of images that can be submitted for object detection using Apple Intelligence. The user can click on an
+/// image to request object detection.
+class ObjectDetectionWindow extends StatelessWidget {
+  /// Creates an instance of [ObjectDetectionWindow].
+  const ObjectDetectionWindow({
     required this.state,
     super.key,
   });
@@ -26,8 +27,8 @@ class ImageClassificationWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CapabilityWindow(
-      displayFormat: CapabilityWindowDisplayFormat.fancy,
-      title: AppLocalizations.of(context)!.visionClassifyImage,
+      displayFormat: CapabilityWindowDisplayFormat.plain,
+      title: AppLocalizations.of(context)!.visionObjectDetection,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,28 +51,28 @@ class ImageClassificationWindow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ExampleImageTile(
-                  image: VisionExampleImage.flower,
+                  image: VisionExampleImage.deskScene,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.flower,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    image: VisionExampleImage.deskScene,
+                    service: AppleIntelligenceVisionCapability.objectDetection,
                   ),
-                  selected: state.selectedClassificationExampleImage == VisionExampleImage.flower,
+                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.deskScene,
                 ),
                 ExampleImageTile(
-                  image: VisionExampleImage.dog,
+                  image: VisionExampleImage.natureScene,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.dog,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    image: VisionExampleImage.natureScene,
+                    service: AppleIntelligenceVisionCapability.objectDetection,
                   ),
-                  selected: state.selectedClassificationExampleImage == VisionExampleImage.dog,
+                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.natureScene,
                 ),
                 ExampleImageTile(
-                  image: VisionExampleImage.chair,
+                  image: VisionExampleImage.foodScene,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.chair,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    image: VisionExampleImage.foodScene,
+                    service: AppleIntelligenceVisionCapability.objectDetection,
                   ),
-                  selected: state.selectedClassificationExampleImage == VisionExampleImage.chair,
+                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.foodScene,
                 ),
               ],
             ),
@@ -83,8 +84,8 @@ class ImageClassificationWindow extends StatelessWidget {
             ),
             child: Center(
               child: BrutalistButton(
-                onTap: state.onClassifyImage,
-                text: AppLocalizations.of(context)!.visionClassifySubmit,
+                onTap: state.onDetectObjects,
+                text: AppLocalizations.of(context)!.visionObjectDetectionSubmit,
               ),
             ),
           ),
@@ -103,13 +104,13 @@ class ImageClassificationWindow extends StatelessWidget {
               bottom: Inset.xSmall,
             ),
             child: Text(
-              '${AppLocalizations.of(context)!.visionImageClassification}: ',
+              '${AppLocalizations.of(context)!.visionObjectDetection}: ',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
-          if (state.prettyPrintImageClassification != null)
+          if (state.prettyPrintObjectDetection != null)
             Padding(
               padding: const EdgeInsets.only(
                 top: Inset.xxSmall,
@@ -117,11 +118,20 @@ class ImageClassificationWindow extends StatelessWidget {
                 right: Inset.medium,
                 bottom: Inset.xSmall,
               ),
-              child: Text(
-                state.prettyPrintImageClassification!,
+              child: SelectableText(
+                state.prettyPrintObjectDetection!,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
+              ),
+            ),
+          // Draw the object detection results on the selected image visually
+          if (state.objectDetection != null && state.objectDetectionImage != null)
+            Center(
+              child: ObjectDetectionOverlay(
+                image: state.objectDetectionImage!,
+                size: const Size(512, 512),
+                detections: state.objectDetection!,
               ),
             ),
         ],

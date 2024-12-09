@@ -1,4 +1,5 @@
 import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
+import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -75,7 +76,7 @@ class AppleIntelligenceVisionService {
         if (item is Map<Object?, Object?>) {
           // Convert Map<Object?, Object?> to Map<String, dynamic>
           final Map<String, dynamic> convertedMap = item.map(
-                (key, value) => MapEntry(key.toString(), value),
+            (key, value) => MapEntry(key.toString(), value),
           );
 
           return ImageClassificationResult.fromMap(convertedMap);
@@ -94,23 +95,91 @@ class AppleIntelligenceVisionService {
 
   /// Detects objects in an image.
   ///
-  /// This method uses the Vision framework to identify and locate objects in the image. If a custom Core ML model is
-  /// provided, it will be used for object detection.
+  /// This method uses Apple's Vision framework to perform object detection on the provided image.
+  /// It identifies objects within the image and returns their labels along with bounding boxes
+  /// representing their locations. If a custom Core ML model is provided during initialization,
+  /// it will be used for object detection instead of the default Vision model.
   ///
-  /// - [imagePath]: The file path of the image for object detection.
-  Future<List<Map<String, dynamic>>?> detectObjects(String imagePath) async {
+  /// ## Parameters
+  ///
+  /// - [imagePath]: The file path of the image on which object detection is performed. The image
+  ///   must be accessible from the device at this path.
+  ///
+  /// ## Returns
+  ///
+  /// A `Future` that resolves to a list of [ObjectDetectionResult] objects. Each object contains:
+  /// - `identifier`: A string label representing the name of the detected object (e.g., "bicycle").
+  /// - `boundingBox`: A list of four `double` values representing the normalized bounding box
+  ///   coordinates:
+  ///   - **`x`**: The horizontal position of the top-left corner of the bounding box, relative to
+  ///     the image width.
+  ///   - **`y`**: The vertical position of the top-left corner of the bounding box, relative to
+  ///     the image height.
+  ///   - **`width`**: The width of the bounding box, as a fraction of the image width.
+  ///   - **`height`**: The height of the bounding box, as a fraction of the image height.
+  ///
+  /// ## Coordinate System and Transformation
+  ///
+  /// Object detection models typically use a coordinate system where the origin (`0,0`) is located
+  /// at the **bottom-left** corner of the image. This differs from the coordinate system used by
+  /// Flutter widgets, where the origin is at the **top-left** corner. As a result, the `y`
+  /// coordinate and the bounding box must be transformed to display correctly in a Flutter widget:
+  ///
+  /// ```dart
+  /// final transformedY = 1.0 - boundingBox[1] - boundingBox[3];
+  /// ```
+  ///
+  /// This transformation ensures that the vertical positioning of the bounding boxes aligns with
+  /// the Flutter coordinate system when rendering the image.
+  ///
+  /// ## Error Handling
+  ///
+  /// If the object detection process fails (e.g., due to an invalid image path or model errors),
+  /// the function logs the error and returns `null`.
+  ///
+  /// ## Example
+  ///
+  /// Given an image containing a bicycle and a dining table, the function might return:
+  ///
+  /// ```json
+  /// [
+  ///   { "identifier": "bicycle", "boundingBox": [0.52, 0.13, 0.42, 0.37] },
+  ///   { "identifier": "diningtable", "boundingBox": [0.04, 0.18, 0.41, 0.20] }
+  /// ]
+  /// ```
+  ///
+  /// These results can be visualized by overlaying the bounding boxes on the image in a Flutter
+  /// widget, with the necessary coordinate transformations for the `y` axis.
+  Future<List<ObjectDetectionResult>?> detectObjects(String imagePath) async {
     try {
-      // If a custom model is provided, use it for object detection.
-      if (customModelName != null) {
-        return await _channel.invokeMethod('detectObjectsWithCustomModel', {
-          'imagePath': imagePath,
-          'modelName': customModelName,
-        }) as List<Map<String, dynamic>>?;
-      }
-      // Otherwise, use the default Vision model.
-      else {
-        return await _channel.invokeMethod('detectObjects', {'imagePath': imagePath}) as List<Map<String, dynamic>>?;
-      }
+      // Prepare arguments for the Method Channel call
+      final Map<String, dynamic> arguments = {
+        'imagePath': imagePath,
+        if (customModelName != null) 'modelName': customModelName,
+      };
+
+      // Invoke the Method Channel and cast the result
+      final List<dynamic>? result = await _channel.invokeMethod<List<dynamic>>(
+        customModelName != null ? 'detectObjectsWithCustomModel' : 'detectObjects',
+        arguments,
+      );
+
+      // Convert the result to a List<ObjectDetectionResult>
+      final List<ObjectDetectionResult>? results = result?.map((item) {
+        if (item is Map<Object?, Object?>) {
+          // Convert Map<Object?, Object?> to Map<String, dynamic>
+          final Map<String, dynamic> convertedMap = item.map(
+            (key, value) => MapEntry(key.toString(), value),
+          );
+
+          return ObjectDetectionResult.fromMap(convertedMap);
+        }
+
+        throw Exception('Unexpected item format: $item');
+      }).toList();
+
+      // Return the list of ObjectDetectionResult objects
+      return results;
     } catch (e) {
       debugPrint('Object detection failed with error, $e');
 

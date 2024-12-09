@@ -84,6 +84,14 @@
   "@visionSelectExampleImage": {
     "description": "A label for the Apple Intelligence Vision select example image services."
   },
+  "visionObjectDetection": "Object Detection",
+  "@visionObjectDetection": {
+    "description": "A label for the Apple Intelligence Vision object detection services."
+  },
+  "visionObjectDetectionSubmit": "Detect",
+  "@visionObjectDetectionSubmit": {
+    "description": "The text for a button used to submit an image for object detection."
+  },
   "visionWelcomeMessage": "Apple Intelligence Vision Services",
   "welcomeMessage": "Welcome to the Apple Intelligence Integration Demo.",
   "@welcomeMessage": {

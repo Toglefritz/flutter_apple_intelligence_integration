@@ -92,17 +92,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E5ED5CCC2CFCD92700A93EE8 /* PlatformChannels */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = PlatformChannels;
-			sourceTree = "<group>";
-		};
+		E5ED5CCC2CFCD92700A93EE8 /* PlatformChannels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = PlatformChannels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,7 +201,6 @@
 				6397EBD97A8F046CA6E9DD87 /* Pods-RunnerTests.release.xcconfig */,
 				C1AA92020C99A0AE334E30D2 /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
