@@ -76,6 +76,14 @@
   "@visionClassifyImage": {
     "description": "A label for the Apple Intelligence Vision classify image services."
   },
+  "visionFaceDetection": "Face Detection",
+  "@visionFaceDetection": {
+    "description": "A label for the Apple Intelligence Vision face detection services."
+  },
+  "visionFaceDetectionSubmit": "Detect Faces",
+  "@visionFaceDetectionSubmit": {
+    "description": "The text for a button used to submit an image for face detection."
+  },
   "visionImageClassification": "Image Classification",
   "@visionImageClassification": {
     "description": "A label for the Apple Intelligence Vision image classification services."

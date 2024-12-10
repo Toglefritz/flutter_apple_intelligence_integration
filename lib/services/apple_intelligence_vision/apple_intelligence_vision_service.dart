@@ -1,3 +1,4 @@
+import 'package:demo_app/services/apple_intelligence_vision/models/face_detection_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/text_recognition_result.dart';
@@ -266,16 +267,58 @@ class AppleIntelligenceVisionService {
 
   /// Detects faces in an image.
   ///
-  /// This method uses the Vision framework to identify faces in an image and provides their locations and bounding
-  /// boxes.
+  /// This method uses the Vision framework via a Method Channel to detect faces in the provided image.
+  /// It returns a list of `FaceDetectionResult` instances, where each result represents a detected face
+  /// with its bounding box coordinates.
   ///
-  /// - [imagePath]: The file path of the image for face detection.
-  Future<List<Map<String, dynamic>>?> detectFaces(String imagePath) async {
+  /// ## Parameters
+  /// - [imagePath]: The file path of the image for face detection. The image must be accessible
+  ///   at the specified path.
+  ///
+  /// ## Returns
+  /// A `Future` that resolves to a list of `FaceDetectionResult` objects. Each object contains:
+  /// - `boundingBox`: The bounding box of the detected face as a list of four normalized values:
+  ///   - **`x`**: The horizontal position of the bottom-left corner of the bounding box, relative to the image width.
+  ///   - **`y`**: The vertical position of the bottom-left corner of the bounding box, relative to the image height.
+  ///   - **`width`**: The width of the bounding box, as a fraction of the image width.
+  ///   - **`height`**: The height of the bounding box, as a fraction of the image height.
+  ///
+  /// ## Example Return Value
+  /// If an image contains two faces, the method might return:
+  /// ```dart
+  /// [
+  ///   FaceDetectionResult(boundingBox: [0.1, 0.6, 0.3, 0.3]),
+  ///   FaceDetectionResult(boundingBox: [0.5, 0.5, 0.3, 0.3]),
+  /// ]
+  /// ```
+  ///
+  /// ## Error Handling
+  /// If the face detection process fails (e.g., due to an invalid image path), the function logs
+  /// the error and returns `null`.
+  Future<List<FaceDetectionResult>?> detectFaces(String imagePath) async {
     try {
-      return await _channel.invokeMethod('detectFaces', {'imagePath': imagePath}) as List<Map<String, dynamic>>?;
+      // Call the Method Channel
+      final List<dynamic>? result = await _channel.invokeMethod<List<dynamic>>(
+        'detectFaces',
+        {'imagePath': imagePath},
+      );
+
+      // Parse the result into a list of FaceDetectionResult objects
+      final List<FaceDetectionResult>? results = result?.map((item) {
+        if (item is Map<Object?, Object?>) {
+          // Convert Map<Object?, Object?> to Map<String, dynamic>
+          final Map<String, dynamic> convertedMap = item.map(
+                (key, value) => MapEntry(key.toString(), value),
+          );
+          return FaceDetectionResult.fromMap(convertedMap);
+        }
+
+        throw Exception('Unexpected item format: $item');
+      }).toList();
+
+      return results;
     } catch (e) {
       debugPrint('Face detection failed with exception, $e');
-
       return null;
     }
   }

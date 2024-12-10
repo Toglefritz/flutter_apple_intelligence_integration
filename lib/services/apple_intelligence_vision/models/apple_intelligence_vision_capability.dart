@@ -7,5 +7,8 @@ enum AppleIntelligenceVisionCapability {
   objectDetection,
 
   /// The text recognition capability.
-  textRecognition
+  textRecognition,
+
+  /// The face detection capability.
+  faceDetection,
 }

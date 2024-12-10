@@ -1,7 +1,7 @@
 import 'package:demo_app/screens/components/brutalist_button.dart';
 import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
-import 'package:demo_app/screens/vision/components/object_detection_overlay.dart';
+import 'package:demo_app/screens/vision/components/face_detection_overlay.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
 import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
@@ -9,14 +9,14 @@ import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A "window" containing a series of example images for which the user can request object detection.
+/// A "window" containing a series of example images for which the user can request face detection.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for object detection using Apple Intelligence. The user can click on an
-/// image to request object detection.
-class ObjectDetectionWindow extends StatelessWidget {
-  /// Creates an instance of [ObjectDetectionWindow].
-  const ObjectDetectionWindow({
+/// selection of images that can be submitted for face detection using Apple Intelligence. The user can click on an
+/// image to request face detection and the system will return the bounding boxes for any faces detected in the image.
+class FaceDetectionWindow extends StatelessWidget {
+  /// Creates an instance of [FaceDetectionWindow].
+  const FaceDetectionWindow({
     required this.state,
     super.key,
   });
@@ -27,8 +27,8 @@ class ObjectDetectionWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CapabilityWindow(
-      displayFormat: CapabilityWindowDisplayFormat.plain,
-      title: AppLocalizations.of(context)!.visionObjectDetection,
+      displayFormat: CapabilityWindowDisplayFormat.fancy,
+      title: AppLocalizations.of(context)!.visionFaceDetection,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,28 +51,28 @@ class ObjectDetectionWindow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ExampleImageTile(
-                  image: VisionExampleImage.deskScene,
+                  image: VisionExampleImage.astronaut,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.deskScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    image: VisionExampleImage.astronaut,
+                    service: AppleIntelligenceVisionCapability.faceDetection,
                   ),
-                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.deskScene,
+                  selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.astronaut,
                 ),
                 ExampleImageTile(
-                  image: VisionExampleImage.natureScene,
+                  image: VisionExampleImage.group,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.natureScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    image: VisionExampleImage.group,
+                    service: AppleIntelligenceVisionCapability.faceDetection,
                   ),
-                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.natureScene,
+                  selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.group,
                 ),
                 ExampleImageTile(
-                  image: VisionExampleImage.foodScene,
+                  image: VisionExampleImage.crowd,
                   onTap: () => state.onSelectExampleImage(
-                    image: VisionExampleImage.foodScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    image: VisionExampleImage.crowd,
+                    service: AppleIntelligenceVisionCapability.faceDetection,
                   ),
-                  selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.foodScene,
+                  selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.crowd,
                 ),
               ],
             ),
@@ -84,8 +84,8 @@ class ObjectDetectionWindow extends StatelessWidget {
             ),
             child: Center(
               child: BrutalistButton(
-                onTap: state.onDetectObjects,
-                text: AppLocalizations.of(context)!.visionObjectDetectionSubmit,
+                onTap: state.onDetectFaces,
+                text: AppLocalizations.of(context)!.visionFaceDetectionSubmit,
               ),
             ),
           ),
@@ -104,13 +104,13 @@ class ObjectDetectionWindow extends StatelessWidget {
               bottom: Inset.xSmall,
             ),
             child: Text(
-              '${AppLocalizations.of(context)!.visionObjectDetection}: ',
+              '${AppLocalizations.of(context)!.visionFaceDetection}: ',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
-          if (state.prettyPrintObjectDetection != null)
+          if (state.prettyPrintFaceDetection != null)
             Padding(
               padding: const EdgeInsets.only(
                 top: Inset.xxSmall,
@@ -119,19 +119,19 @@ class ObjectDetectionWindow extends StatelessWidget {
                 bottom: Inset.xSmall,
               ),
               child: SelectableText(
-                state.prettyPrintObjectDetection!,
+                state.prettyPrintFaceDetection!,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
             ),
-          // Draw the object detection results on the selected image visually
-          if (state.objectDetectionResult != null && state.objectDetectionImage != null)
+          // Draw the face detection results on the selected image visually
+          if (state.faceDetectionResult != null && state.faceDetectionImage != null)
             Center(
-              child: ObjectDetectionOverlay(
-                image: state.objectDetectionImage!,
+              child: FaceDetectionOverlay(
+                image: state.faceDetectionImage!,
                 size: const Size(512, 512),
-                detections: state.objectDetectionResult!,
+                detections: state.faceDetectionResult!,
               ),
             ),
         ],

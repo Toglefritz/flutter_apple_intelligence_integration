@@ -31,7 +31,16 @@ enum VisionExampleImage {
   bookCover._('assets/vision_examples/vision_example_book_cover.png'),
 
   /// An image of a coffee shop menu.
-  coffeeMenu._('assets/vision_examples/vision_example_coffee_shop_menu.png');
+  coffeeMenu._('assets/vision_examples/vision_example_coffee_shop_menu.png'),
+
+  /// An image of an astronaut with their face visible through their helmet.
+  astronaut._('assets/vision_examples/vision_example_single_face.png'),
+
+  /// An image of three people in a group.
+  group._('assets/vision_examples/vision_example_three_people.png'),
+
+  /// An image of a crowd of people.
+  crowd._('assets/vision_examples/vision_example_crowd.png');
 
   /// The file path of the image.
   final String path;
