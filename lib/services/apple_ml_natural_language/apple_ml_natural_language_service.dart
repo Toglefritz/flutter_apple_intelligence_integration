@@ -1,8 +1,8 @@
-import 'package:demo_app/services/apple_intelligence_natural_language/models/tokenization_unit.dart';
+import 'package:demo_app/services/apple_ml_natural_language/models/tokenization_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// A service class for interacting with the Apple Intelligence Natural Language (NLP) services.
+/// A service class for interacting with the Apple Machine Learning Natural Language (NLP) services.
 ///
 /// This class provides an interface for performing various natural language processing tasks, such as language
 /// identification, sentiment analysis, tokenization, and named entity recognition (NER), using Apple's Natural
@@ -12,35 +12,23 @@ import 'package:flutter/services.dart';
 /// This service acts as the bridge between the Flutter application and the native iOS/macOS Natural Language framework.
 /// It communicates with native code via Method Channels to leverage advanced NLP capabilities. Developers can use the
 /// default pre-trained models provided by Apple or supply custom Core ML models for specialized use cases.
-///
-/// ## Usage
-///
-/// - Use the default constructor to rely on Apple's pre-trained NLP models:
-/// ```dart
-/// final AppleIntelligenceNaturalLanguageService nlpService = AppleIntelligenceNaturalLanguageService();
-/// ```
-///
-/// - Use the factory constructor to specify a custom Core ML model:
-/// ```dart
-/// final AppleIntelligenceNaturalLanguageService nlpServiceWithCustomModel = AppleIntelligenceNaturalLanguageService.withCustomModel('MyCustomNLPModel');
-/// ```
-class AppleIntelligenceNaturalLanguageService {
+class AppleMLNaturalLanguageService {
   /// The [MethodChannel] used for communication with the native platform code.
-  static const MethodChannel _channel = MethodChannel('apple_intelligence_nlp');
+  static const MethodChannel _channel = MethodChannel('apple_ml_nlp');
 
   /// The name of the custom Core ML model to use, if provided.
   final String? customModelName;
 
   /// Default constructor for the service, using the built-in NLP models.
-  AppleIntelligenceNaturalLanguageService() : customModelName = null;
+  AppleMLNaturalLanguageService() : customModelName = null;
 
   /// Factory constructor for the service with a custom Core ML model.
-  factory AppleIntelligenceNaturalLanguageService.withCustomModel(String modelName) {
-    return AppleIntelligenceNaturalLanguageService._internal(customModelName: modelName);
+  factory AppleMLNaturalLanguageService.withCustomModel(String modelName) {
+    return AppleMLNaturalLanguageService._internal(customModelName: modelName);
   }
 
   /// Internal constructor for handling initialization with or without a custom model.
-  AppleIntelligenceNaturalLanguageService._internal({this.customModelName});
+  AppleMLNaturalLanguageService._internal({this.customModelName});
 
   /// Identifies the language of the given text.
   ///
@@ -244,7 +232,7 @@ class AppleIntelligenceNaturalLanguageService {
   ///   - If entity recognition fails due to an error, the function returns `null`.
   ///
   /// ### Default Entity Types:
-  /// The default model provided by Apple Intelligence is capable of recognizing the following types
+  /// The default model provided by Apple Machine Learning is capable of recognizing the following types
   /// of entities:
   /// - `"PersonalName"`: Names of people (e.g., `"John Doe"`).
   /// - `"PlaceName"`: Names of geographic locations (e.g., `"Paris"`, `"Mount Everest"`).
@@ -321,7 +309,7 @@ class AppleIntelligenceNaturalLanguageService {
   ///   - If the input text is empty, the function returns an empty list.
   ///   - If lemmatization fails or an error occurs, the function returns `null`.
   ///
-  /// ### Use of Apple Intelligence:
+  /// ### Use of Apple Machine Learning:
   /// This function utilizes Apple's Natural Language framework to perform lemmatization. The framework analyzes the
   /// grammatical role and context of each word in the input text to determine its appropriate lemma. For example:
   /// - `"running"` → `"run"` (verb form)

@@ -2,8 +2,8 @@ import 'package:demo_app/screens/components/brutalist_button.dart';
 import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/models/apple_ml_vision_capability.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,8 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// A "window" containing a series of example images for which the user can request classification.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for classification using Apple Intelligence. The user can click on an
-/// image to request classification.
+/// selection of images that can be submitted for classification using Apple Machine Learning services. The user can
+/// click on an image to request classification.
 class ImageClassificationWindow extends StatelessWidget {
   /// Creates an instance of [ImageClassificationWindow].
   const ImageClassificationWindow({
@@ -53,7 +53,7 @@ class ImageClassificationWindow extends StatelessWidget {
                   image: VisionExampleImage.flower,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.flower,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    service: AppleMLVisionCapability.classification,
                   ),
                   selected: state.selectedClassificationExampleImage == VisionExampleImage.flower,
                 ),
@@ -61,7 +61,7 @@ class ImageClassificationWindow extends StatelessWidget {
                   image: VisionExampleImage.dog,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.dog,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    service: AppleMLVisionCapability.classification,
                   ),
                   selected: state.selectedClassificationExampleImage == VisionExampleImage.dog,
                 ),
@@ -69,7 +69,7 @@ class ImageClassificationWindow extends StatelessWidget {
                   image: VisionExampleImage.chair,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.chair,
-                    service: AppleIntelligenceVisionCapability.classification,
+                    service: AppleMLVisionCapability.classification,
                   ),
                   selected: state.selectedClassificationExampleImage == VisionExampleImage.chair,
                 ),

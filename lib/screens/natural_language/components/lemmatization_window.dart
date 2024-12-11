@@ -4,12 +4,12 @@ import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A "window" containing a text input field for collecting text to be lemmatized using Apple Intelligence and a display
-/// for the lemmatized text.
+/// A "window" containing a text input field for collecting text to be lemmatized using Apple Machine Learning and a
+/// display for the lemmatized text.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// text input field for collecting text that will be lemmatized using Apple Intelligence and a display for the
-/// lemmatized text. The lemmatization is performed by Apple Intelligence.
+/// text input field for collecting text that will be lemmatized using Apple ML and a display for the
+/// lemmatized text. The lemmatization is performed by Apple ML.
 class LemmatizationWindow extends StatelessWidget {
   /// Creates an instance of [LemmatizationWindow].
   const LemmatizationWindow({

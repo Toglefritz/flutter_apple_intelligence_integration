@@ -5,9 +5,9 @@ import CoreML
 
 /// A Swift class that handles Method Channel calls for natural language processing (NLP) services.
 ///
-/// This class provides a modular interface for the Apple Intelligence Natural Language (NLP) framework
+/// This class provides a modular interface for the Apple ML Natural Language (NLP) framework
 /// and integrates with Core ML for custom model support. It processes calls from the Dart-side
-/// `AppleIntelligenceNaturalLanguageService` class and returns results back to the Flutter application.
+/// `AppleMLNaturalLanguageService` class and returns results back to the Flutter application.
 ///
 /// ## Responsibilities
 /// - Handles Method Channel communication for NLP tasks, including:
@@ -31,7 +31,7 @@ import CoreML
 class NaturalLanguageMethodChannelHandler: NSObject {
     
     /// The name of the Method Channel for communicating with the Dart side.
-    private static let channelName = "apple_intelligence_nlp"
+    private static let channelName = "apple_ml_nlp"
     
     /// The Method Channel instance for this handler.
     private let methodChannel: FlutterMethodChannel
@@ -96,7 +96,7 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         }
     }
     
-    /// Identifies the dominant language of the given text using the built-in Apple Intelligence model.
+    /// Identifies the dominant language of the given text using the built-in Apple Core ML model.
     ///
     /// This method uses the `NLLanguageRecognizer` from Apple's Natural Language framework to determine
     /// the primary language of the input text. The recognition process analyzes linguistic patterns and
@@ -125,7 +125,7 @@ class NaturalLanguageMethodChannelHandler: NSObject {
         return nil // Placeholder for custom implementation
     }
     
-    /// Analyzes the sentiment of the given text using the built-in Apple Intelligence model.
+    /// Analyzes the sentiment of the given text using the built-in Apple Core ML model.
     ///
     /// Sentiment analysis evaluates the emotional tone conveyed in the input text, assigning a numerical
     /// score to indicate the sentiment. The score ranges from -1.0 (strongly negative) to 1.0 (strongly positive),

@@ -2,24 +2,24 @@ import 'package:demo_app/screens/home/home_route.dart';
 import 'package:demo_app/screens/home/home_view.dart';
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
 import 'package:demo_app/screens/vision/vision_route.dart';
-import 'package:demo_app/services/models/apple_intelligence_service.dart';
+import 'package:demo_app/services/apple_machine_learning_service.dart';
 import 'package:flutter/material.dart';
 
 /// A controller for the [HomeRoute].
 class HomeController extends State<HomeRoute> {
-  /// A handler for taps on the badges representing services from Apple Intelligence.
-  void onServiceTap(AppleIntelligenceService service) {
+  /// A handler for taps on the badges representing services from Apple Machine Learning.
+  void onServiceTap(AppleMachineLearningService service) {
     // Navigate to the route corresponding to the service.
     switch (service) {
-      case AppleIntelligenceService.naturalLanguageProcessing:
+      case AppleMachineLearningService.naturalLanguageProcessing:
         onNaturalLanguageButtonTap();
-      case AppleIntelligenceService.sound:
+      case AppleMachineLearningService.sound:
         onSoundButtonTap();
-      case AppleIntelligenceService.speechRecognition:
+      case AppleMachineLearningService.speechRecognition:
         onSpeechRecognitionButtonTap();
-      case AppleIntelligenceService.translation:
+      case AppleMachineLearningService.translation:
         onTranslationButtonTap();
-      case AppleIntelligenceService.vision:
+      case AppleMachineLearningService.vision:
         onVisionButtonTap();
     }
   }

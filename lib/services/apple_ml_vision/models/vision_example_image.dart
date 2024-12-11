@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
-/// A series of example images to be used for demonstrating the capabilities of the Apple Intelligence Vision
+/// A series of example images to be used for demonstrating the capabilities of the Apple Machine Learning Vision
 /// services.
 enum VisionExampleImage {
   /// An image of a flower.
@@ -51,7 +51,7 @@ enum VisionExampleImage {
   /// Returns an absolute file path for the image that can be accessed by the native platform.
   ///
   /// This method copies the image from the assets to a temporary directory and returns the path to the copy.
-  /// The resulting path can be used to classify the image using the Apple Intelligence Vision service.
+  /// The resulting path can be used to classify the image using the Apple Machine Learning Vision service.
   Future<String> getAbsolutePath() async {
     // Get the temporary directory for the app
     final Directory tempDir = await getTemporaryDirectory();

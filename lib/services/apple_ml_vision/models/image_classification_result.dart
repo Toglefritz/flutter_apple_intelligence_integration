@@ -1,4 +1,4 @@
-/// Represents a single result from an image classification performed by Apple Intelligence.
+/// Represents a single result from an image classification performed by Apple Machine Learning.
 ///
 /// Each result contains:
 /// - [identifier]: The label assigned to the image.

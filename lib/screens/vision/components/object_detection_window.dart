@@ -3,8 +3,8 @@ import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
 import 'package:demo_app/screens/vision/components/object_detection_overlay.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/models/apple_ml_vision_capability.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,8 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// A "window" containing a series of example images for which the user can request object detection.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for object detection using Apple Intelligence. The user can click on an
-/// image to request object detection.
+/// selection of images that can be submitted for object detection using Apple Machine Learning. The user can click on
+/// an image to request object detection.
 class ObjectDetectionWindow extends StatelessWidget {
   /// Creates an instance of [ObjectDetectionWindow].
   const ObjectDetectionWindow({
@@ -54,7 +54,7 @@ class ObjectDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.deskScene,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.deskScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    service: AppleMLVisionCapability.objectDetection,
                   ),
                   selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.deskScene,
                 ),
@@ -62,7 +62,7 @@ class ObjectDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.natureScene,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.natureScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    service: AppleMLVisionCapability.objectDetection,
                   ),
                   selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.natureScene,
                 ),
@@ -70,7 +70,7 @@ class ObjectDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.foodScene,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.foodScene,
-                    service: AppleIntelligenceVisionCapability.objectDetection,
+                    service: AppleMLVisionCapability.objectDetection,
                   ),
                   selected: state.selectedObjectDetectionExampleImage == VisionExampleImage.foodScene,
                 ),

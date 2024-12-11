@@ -4,12 +4,12 @@ import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A "window" containing a text input field for collecting text to be tokenized using Apple Intelligence and a display
-/// for the tokenized text.
+/// A "window" containing a text input field for collecting text to be tokenized using Apple Machine Learning and a
+/// display  for the tokenized text.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// text input field for collecting text that will be tokenized using Apple Intelligence and a display for the tokenized
-/// text. The tokenization is performed by Apple Intelligence. Initially, the tokenized text is unknown (because no text
+/// text input field for collecting text that will be tokenized using Apple ML and a display for the tokenized
+/// text. The tokenization is performed by Apple ML. Initially, the tokenized text is unknown (because no text
 /// has been submitted for tokenization). When the user submits text for tokenization, the tokenized text is displayed in
 /// the window.
 class TokenizationWindow extends StatelessWidget {

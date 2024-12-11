@@ -1,5 +1,5 @@
-import 'package:demo_app/services/apple_intelligence_vision/models/face_detection_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/models/face_detection_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that displays an image with face detection bounding boxes and labels.

@@ -1,24 +1,24 @@
 import 'package:demo_app/screens/components/brutalist_container.dart';
 import 'package:demo_app/screens/home/components/service_badge.dart';
-import 'package:demo_app/services/models/apple_intelligence_service.dart';
+import 'package:demo_app/services/apple_machine_learning_service.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// A container including icons for Apple Intelligence services.
+/// A container including icons for Apple Machine Learning services.
 ///
 /// This widget is a container designed to emulate the appearance of windows in 1980s versions of MacOS. The window
-/// includes a series of icons, each corresponding to a different service offered by Apple Intelligence. The window can
-/// be dragged to change its position on the screen.
-class AppleIntelligencesServicesWindow extends StatelessWidget {
-  /// Creates a new instance of [AppleIntelligencesServicesWindow].
-  const AppleIntelligencesServicesWindow({
+/// includes a series of icons, each corresponding to a different service offered by Apple's machine learning
+/// capabilities.
+class AppleMLServicesWindow extends StatelessWidget {
+  /// Creates a new instance of [AppleMLServicesWindow].
+  const AppleMLServicesWindow({
     required this.onServiceTapped,
     super.key,
   });
 
-  /// A function called when one of the badges representing services from Apple Intelligence is tapped.
-  final void Function(AppleIntelligenceService) onServiceTapped;
+  /// A function called when one of the badges representing services from Apple ML is tapped.
+  final void Function(AppleMachineLearningService) onServiceTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +72,8 @@ class AppleIntelligencesServicesWindow extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(AppleIntelligenceService.values.length, (index) {
-              final AppleIntelligenceService service = AppleIntelligenceService.values[index];
+            children: List.generate(AppleMachineLearningService.values.length, (index) {
+              final AppleMachineLearningService service = AppleMachineLearningService.values[index];
 
               return GestureDetector(
                 onTap: () => onServiceTapped(service),

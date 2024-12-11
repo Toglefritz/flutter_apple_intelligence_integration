@@ -6,19 +6,19 @@ enum ImageAsset {
   /// A generic back arrow icon.
   arrowIcon('assets/arrow_icon.png'),
 
-  /// An icon used for the Apple Intelligence natural language processing service.
+  /// An icon used for the Apple ML natural language processing service.
   nlpIcon('assets/nlp.png'),
 
-  /// An icon used for the Apple Intelligence sound service.
+  /// An icon used for the Apple ML sound service.
   sound('assets/sound.png'),
 
-  /// An icon used for the Apple Intelligence speech recognition service.
+  /// An icon used for the Apple ML speech recognition service.
   speech('assets/speech.png'),
 
-  /// An icon used for the Apple Intelligence translation service.
+  /// An icon used for the Apple ML translation service.
   translation('assets/translation.png'),
 
-  /// An icon used for the Apple Intelligence vision service.
+  /// An icon used for the Apple ML vision service.
   vision('assets/vision.png'),;
 
   /// The path to the image asset.

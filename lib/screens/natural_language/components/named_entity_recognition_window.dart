@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// A "window" containing a text input field for collecting text for which named entity recognition will be performed
-/// using Apple Intelligence.
+/// using Apple Machine Learning.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// text input field for collecting text that will be processed by Apple Intelligence for named entity recognition.
-/// Initially, the named entities are unknown (because no text has been submitted for processing). When the user submits
-/// text for named entity recognition, the named entities are displayed in the window.
+/// text input field for collecting text that will be processed by Apple ML for named entity recognition. Initially, the
+/// named entities are unknown (because no text has been submitted for processing). When the user submits text for
+/// named entity recognition, the named entities are displayed in the window.
 class NamedEntityRecognitionWindow extends StatelessWidget {
   /// Creates an instance of [NamedEntityRecognitionWindow].
   const NamedEntityRecognitionWindow({

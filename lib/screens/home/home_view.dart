@@ -1,4 +1,4 @@
-import 'package:demo_app/screens/home/components/apple_intelligence_services_window.dart';
+import 'package:demo_app/screens/home/components/apple_ml_services_window.dart';
 import 'package:demo_app/screens/home/components/welcome_message_window.dart';
 import 'package:demo_app/screens/home/home_controller.dart';
 import 'package:demo_app/screens/home/home_route.dart';
@@ -36,7 +36,7 @@ class HomeView extends StatelessWidget {
                     horizontal: Inset.xLarge,
                     vertical: Inset.medium,
                   ),
-                  child: AppleIntelligencesServicesWindow(
+                  child: AppleMLServicesWindow(
                     onServiceTapped: state.onServiceTap,
                   ),
                 ),

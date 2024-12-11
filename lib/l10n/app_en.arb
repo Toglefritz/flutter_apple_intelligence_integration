@@ -1,5 +1,5 @@
 {
-  "featuresHeader": "Apple Intelligence Services",
+  "featuresHeader": "Apple Machine Learning Services",
   "@featuresHeader": {
     "description": "Header for the features section."
   },
@@ -9,64 +9,64 @@
   },
   "naturalLanguageIdentifyLanguage": "Identify Language",
   "@naturalLanguageIdentifyLanguage": {
-    "description": "A label for the Apple Intelligence Natural Language Processing identify language services."
+    "description": "A label for the Apple ML Natural Language Processing identify language services."
   },
   "naturalLanguageIdentifiedLanguage": "Identified Language",
   "@naturalLanguageIdentifiedLanguage": {
-    "description": "A label for the Apple Intelligence Natural Language Processing identified language services."
+    "description": "A label for the Apple ML Natural Language Processing identified language services."
   },
   "naturalLanguageLemmatization": "Lemmatization",
   "@naturalLanguageLemmatization": {
-    "description": "A label for the Apple Intelligence Natural Language Processing lemmatization services."
+    "description": "A label for the Apple ML Natural Language Processing lemmatization services."
   },
   "naturalLanguageLemmatizedText": "Lemmatized Text",
   "@naturalLanguageLemmatizedText": {
-    "description": "A label for the Apple Intelligence Natural Language Processing lemmatized text services."
+    "description": "A label for the Apple ML Natural Language Processing lemmatized text services."
   },
   "naturalLanguageNamedEntityRecognition": "Named Entity Recognition",
   "@naturalLanguageNamedEntityRecognition": {
-    "description": "A label for the Apple Intelligence Natural Language Processing named entity recognition services."
+    "description": "A label for the Apple ML Natural Language Processing named entity recognition services."
   },
   "naturalLanguageNamedEntityText": "Named Entities",
   "@naturalLanguageNamedEntityText": {
-    "description": "A label for the Apple Intelligence Natural Language Processing named entities services."
+    "description": "A label for the Apple ML Natural Language Processing named entities services."
   },
   "naturalLanguageSentimentAnalysis": "Sentiment Analysis",
   "@naturalLanguageSentimentAnalysis": {
-    "description": "A label for the Apple Intelligence Natural Language Processing sentiment analysis services."
+    "description": "A label for the Apple ML Natural Language Processing sentiment analysis services."
   },
   "naturalLanguageSentimentScore": "Sentiment Score",
   "@naturalLanguageSentimentScore": {
-    "description": "A label for the Apple Intelligence Natural Language Processing sentiment score services."
+    "description": "A label for the Apple ML Natural Language Processing sentiment score services."
   },
   "naturalLanguageTokenization": "Tokenization",
   "@naturalLanguageTokenization": {
-    "description": "A label for the Apple Intelligence Natural Language Processing tokenization services."
+    "description": "A label for the Apple ML Natural Language Processing tokenization services."
   },
   "naturalLanguageTokenizedText": "Tokenized Text",
   "@naturalLanguageTokenizedText": {
-    "description": "A label for the Apple Intelligence Natural Language Processing tokenized text services."
+    "description": "A label for the Apple ML Natural Language Processing tokenized text services."
   },
-  "naturalLanguageWelcomeMessage": "Apple Intelligence Natural Language Processing",
+  "naturalLanguageWelcomeMessage": "Apple ML Natural Language Processing",
   "nlp": "Natural Language",
   "@nlp": {
-    "description": "A label for the Apple Intelligence Natural Language Processing services."
+    "description": "A label for the Apple ML Natural Language Processing services."
   },
   "sound": "Sound",
   "@sound": {
-    "description": "A label for the Apple Intelligence sound recognition services."
+    "description": "A label for the Apple ML sound recognition services."
   },
   "speech": "Speech",
   "@speech": {
-    "description": "A label for the Apple Intelligence speech services."
+    "description": "A label for the Apple ML speech services."
   },
   "translation": "Translation",
   "@translation": {
-    "description": "A label for the Apple Intelligence translation services."
+    "description": "A label for the Apple ML translation services."
   },
   "vision": "Vision",
   "@vision": {
-    "description": "A label for the Apple Intelligence vision services."
+    "description": "A label for the Apple ML vision services."
   },
   "visionClassifySubmit": "Classify",
   "@visionClassifySubmit": {
@@ -74,11 +74,11 @@
   },
   "visionClassifyImage": "Classify Image",
   "@visionClassifyImage": {
-    "description": "A label for the Apple Intelligence Vision classify image services."
+    "description": "A label for the Apple ML Vision classify image services."
   },
   "visionFaceDetection": "Face Detection",
   "@visionFaceDetection": {
-    "description": "A label for the Apple Intelligence Vision face detection services."
+    "description": "A label for the Apple ML Vision face detection services."
   },
   "visionFaceDetectionSubmit": "Detect Faces",
   "@visionFaceDetectionSubmit": {
@@ -86,15 +86,15 @@
   },
   "visionImageClassification": "Image Classification",
   "@visionImageClassification": {
-    "description": "A label for the Apple Intelligence Vision image classification services."
+    "description": "A label for the Apple ML Vision image classification services."
   },
   "visionSelectExampleImage": "Select an example image",
   "@visionSelectExampleImage": {
-    "description": "A label for the Apple Intelligence Vision select example image services."
+    "description": "A label for the Apple ML Vision select example image services."
   },
   "visionTextRecognition": "Text Recognition",
   "@visionTextRecognition": {
-    "description": "A label for the Apple Intelligence Vision text recognition services."
+    "description": "A label for the Apple ML Vision text recognition services."
   },
   "visionTextRecognitionSubmit": "Recognize Text",
   "@visionTextRecognitionSubmit": {
@@ -102,14 +102,14 @@
   },
   "visionObjectDetection": "Object Detection",
   "@visionObjectDetection": {
-    "description": "A label for the Apple Intelligence Vision object detection services."
+    "description": "A label for the Apple ML Vision object detection services."
   },
   "visionObjectDetectionSubmit": "Detect",
   "@visionObjectDetectionSubmit": {
     "description": "The text for a button used to submit an image for object detection."
   },
-  "visionWelcomeMessage": "Apple Intelligence Vision Services",
-  "welcomeMessage": "Welcome to the Apple Intelligence Integration Demo.",
+  "visionWelcomeMessage": "Apple ML Vision Services",
+  "welcomeMessage": "Welcome to the Apple ML Integration Demo.",
   "@welcomeMessage": {
     "description": "A welcome message for the app."
   }

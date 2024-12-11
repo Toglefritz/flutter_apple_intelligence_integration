@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
 /// text input field for collecting text for language identification and a display for the identified language.
-/// The language identification is performed by Apple Intelligence. Initially, the language is unknown (because no
+/// The language identification is performed by Apple Machine Learning. Initially, the language is unknown (because no
 /// text has been submitted for identification). When the user submits text for identification, the identified language
 /// is displayed in the window.
 class LanguageIdentificationWindow extends StatelessWidget {

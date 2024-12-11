@@ -1,11 +1,11 @@
-import 'package:demo_app/services/apple_intelligence_vision/models/face_detection_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/text_recognition_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/face_detection_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/image_classification_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/object_detection_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/text_recognition_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// A service class for interacting with the Apple Intelligence Vision ML services.
+/// A service class for interacting with the Apple Machine Learning Vision ML services.
 ///
 /// This class provides an interface for performing various vision-related tasks, such as image classification and
 /// object detection, using Apple's Vision framework. Developers can instantiate this service with or without a custom
@@ -13,48 +13,33 @@ import 'package:flutter/services.dart';
 ///
 /// This service acts as the bridge between the Flutter application and the native iOS/macOS Vision framework. It
 /// communicates with native code via Method Channels to leverage the advanced machine learning capabilities offered
-/// by Apple Intelligence. Developers can choose between using Apple's pre-trained Vision models or providing their own
+/// by Apple ML. Developers can choose between using Apple's pre-trained Vision models or providing their own
 /// custom Core ML models for specialized tasks.
-///
-/// ## Usage
-///
-/// - Use the default constructor to rely on Apple's pre-trained models:
-///
-/// ```dart
-/// final AppleIntelligenceVisionService visionService = AppleIntelligenceVisionService();
-/// ```
-///
-/// - Use the factory constructor to specify a custom Core ML model:
-///
-/// ```dart
-/// final AppleIntelligenceVisionService visionServiceWithCustomModel =
-/// AppleIntelligenceVisionService.withCustomModel('CustomVisionModel');
-/// ```
-class AppleIntelligenceVisionService {
+class AppleMLVisionService {
   /// The [MethodChannel] used for communication with the native platform code.
-  static const MethodChannel _channel = MethodChannel('apple_intelligence_vision');
+  static const MethodChannel _channel = MethodChannel('apple_ml_vision');
 
   /// The name of the custom Core ML model to use, if provided.
   final String? customModelName;
 
   /// Default constructor for the service, using the built-in Vision models.
-  AppleIntelligenceVisionService() : customModelName = null;
+  AppleMLVisionService() : customModelName = null;
 
   /// Factory constructor for the service with a custom Core ML model.
-  factory AppleIntelligenceVisionService.withCustomModel(String modelName) {
-    return AppleIntelligenceVisionService._internal(customModelName: modelName);
+  factory AppleMLVisionService.withCustomModel(String modelName) {
+    return AppleMLVisionService._internal(customModelName: modelName);
   }
 
   /// Internal constructor for handling initialization with or without a custom model.
-  AppleIntelligenceVisionService._internal({this.customModelName});
+  AppleMLVisionService._internal({this.customModelName});
 
-  /// Classifies an image using the Apple Intelligence Vision services.
+  /// Classifies an image using the Apple Machine Learning Vision services.
   ///
   /// - [imagePath]: The file path of the image to classify.
   /// - Returns: A list of classification results where each result is a map with:
   ///   - `identifier`: The label for the classification.
   ///   - `confidence`: The confidence score as a percentage.
-  /// Classifies an image using the Apple Intelligence Vision services.
+  /// Classifies an image using the Apple Machine Learning Vision services.
   ///
   /// - [imagePath]: The file path of the image to classify.
   /// - Returns: A list of [ImageClassificationResult] objects containing the

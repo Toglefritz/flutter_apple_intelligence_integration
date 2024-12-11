@@ -1,7 +1,7 @@
 import 'package:demo_app/values/image_asset.dart';
 import 'package:flutter/material.dart';
 
-/// A badge displaying an icon for an Apple Intelligence service.
+/// A badge displaying an icon for an Apple Machine Learning service.
 class ServiceBadge extends StatelessWidget {
   /// Creates a new instance of [ServiceBadge].
   const ServiceBadge({

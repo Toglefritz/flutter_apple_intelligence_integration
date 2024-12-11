@@ -6,7 +6,7 @@ import CoreML
 /// A Swift class that handles Method Channel calls for Vision ML services.
 ///
 /// This class provides a modular interface for Apple's Vision framework and supports integration
-/// with custom Core ML models. It processes calls from the Dart-side `AppleIntelligenceVisionService`
+/// with custom Core ML models. It processes calls from the Dart-side `AppleMLVisionService`
 /// class and returns results back to the Flutter application.
 ///
 /// ## Responsibilities
@@ -28,7 +28,7 @@ import CoreML
 class VisionMethodChannelHandler: NSObject {
     
     /// The name of the Method Channel for Vision services.
-    private static let channelName = "apple_intelligence_vision"
+    private static let channelName = "apple_ml_vision"
     
     /// The Method Channel instance for this handler.
     private let methodChannel: FlutterMethodChannel

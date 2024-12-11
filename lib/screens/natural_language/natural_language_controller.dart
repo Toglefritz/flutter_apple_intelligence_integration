@@ -1,40 +1,40 @@
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
 import 'package:demo_app/screens/natural_language/natural_language_view.dart';
-import 'package:demo_app/services/apple_intelligence_natural_language/apple_intelligence_natural_language_service.dart';
-import 'package:demo_app/services/apple_intelligence_natural_language/models/tokenization_unit.dart';
+import 'package:demo_app/services/apple_ml_natural_language/apple_ml_natural_language_service.dart';
+import 'package:demo_app/services/apple_ml_natural_language/models/tokenization_unit.dart';
 import 'package:flutter/material.dart';
 
 /// A controller for the [NaturalLanguageRoute].
 class NaturalLanguageController extends State<NaturalLanguageRoute> {
-  /// A service for using the natural language processing capabilities of Apple Intelligence.
-  final AppleIntelligenceNaturalLanguageService _naturalLanguageService = AppleIntelligenceNaturalLanguageService();
+  /// A service for using the natural language processing capabilities of Apple Machine Learning.
+  final AppleMLNaturalLanguageService _naturalLanguageService = AppleMLNaturalLanguageService();
 
-  /// A [TextEditingController] for the text field used to collect text for which Apple Intelligence will identify the
+  /// A [TextEditingController] for the text field used to collect text for which Apple ML will identify the
   /// language.
   final TextEditingController identifyLanguageTextController = TextEditingController();
 
-  /// A [TextEditingController] for the text field used to collect text for which Apple Intelligence will analyze the
+  /// A [TextEditingController] for the text field used to collect text for which Apple ML will analyze the
   /// sentiment.
   final TextEditingController analyzeSentimentTextController = TextEditingController();
 
-  /// A [TextEditingController] for the text field used to submit text for tokenization via the Apple Intelligence
+  /// A [TextEditingController] for the text field used to submit text for tokenization via the Apple ML
   /// service.
   final TextEditingController tokenizeTextController = TextEditingController();
 
   /// A [TextEditingController] for the text field used to collect text to be processed by named entity recognition.
   final TextEditingController namedEntityRecognitionTextController = TextEditingController();
 
-  /// A [TextEditingController] for the text field used to collect text to be lemmatized using Apple Intelligence.
+  /// A [TextEditingController] for the text field used to collect text to be lemmatized using Apple ML.
   final TextEditingController lemmatizeTextController = TextEditingController();
 
-  /// A string representation of the language identified by Apple Intelligence for text submitted by the user.
+  /// A string representation of the language identified by Apple ML for text submitted by the user.
   ///
   /// This value is set when the user submits text for which to identify the language. The value is a string
   /// representation of a language code in the BCP 47 format (e.g., `"en"`, `"fr"`, `"es"`), which conforms to industry
   /// standards for language tags.
   String? identifiedLanguage;
 
-  /// A string representation of the sentiment identified by Apple Intelligence for text submitted by the user.
+  /// A string representation of the sentiment identified by Apple ML for text submitted by the user.
   ///
   /// This value is set when the user submits text for which to analyze the sentiment. The value is a double
   /// representing the sentiment score, which ranges from -1.0 (most negative) to 1.0 (most positive).
@@ -43,7 +43,7 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   /// A tokenized string based on the text submitted by the user.
   List<String>? tokenizedText;
 
-  /// A list of named entities identified by Apple Intelligence for text submitted by the user.
+  /// A list of named entities identified by Apple ML for text submitted by the user.
   List<Map<String, String>>? namedEntities;
 
   /// A list of lemmatized words based on the text submitted by the user.

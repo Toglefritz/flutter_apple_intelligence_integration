@@ -1,5 +1,5 @@
-/// An enumeration of capabilities within the Apple Intelligence Vision service.
-enum AppleIntelligenceVisionCapability {
+/// An enumeration of capabilities within the Apple ML Vision service.
+enum AppleMLVisionCapability {
   /// The image classification capability.
   classification,
 

@@ -15,7 +15,7 @@ enum CapabilityWindowDisplayFormat {
   plain,
 }
 
-/// A "window" that displays an interface for the demonstration of an Apple Intelligence capability.
+/// A "window" that displays an interface for the demonstration of an Apple Machine Learning capability.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
 /// title at the top, a content area, and a footer. The content area is where the user interacts with the capability.

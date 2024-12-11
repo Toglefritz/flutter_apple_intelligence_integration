@@ -1,5 +1,5 @@
 name: demo_app
-description: "A new Flutter project."
+description: "A Flutter project demonstrating integrations with Apple's Machine Learning frameworks."
 publish_to: 'none'
 
 version: 1.0.0+1

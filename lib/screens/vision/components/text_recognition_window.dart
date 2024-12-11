@@ -2,8 +2,8 @@ import 'package:demo_app/screens/components/brutalist_button.dart';
 import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/models/apple_ml_vision_capability.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,8 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// A "window" containing a series of example images for which the user can request text recognition.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for text recognition using Apple Intelligence. The user can click on an
-/// image to request text recognition and the system will return the recognized text.
+/// selection of images that can be submitted for text recognition using Apple Machine Learning. The user can click on
+/// an image to request text recognition and the system will return the recognized text.
 class TextRecognitionWindow extends StatelessWidget {
   /// Creates an instance of [TextRecognitionWindow].
   const TextRecognitionWindow({
@@ -53,7 +53,7 @@ class TextRecognitionWindow extends StatelessWidget {
                   image: VisionExampleImage.roadSign,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.roadSign,
-                    service: AppleIntelligenceVisionCapability.textRecognition,
+                    service: AppleMLVisionCapability.textRecognition,
                   ),
                   selected: state.selectedTextRecognitionExampleImage == VisionExampleImage.roadSign,
                 ),
@@ -61,7 +61,7 @@ class TextRecognitionWindow extends StatelessWidget {
                   image: VisionExampleImage.bookCover,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.bookCover,
-                    service: AppleIntelligenceVisionCapability.textRecognition,
+                    service: AppleMLVisionCapability.textRecognition,
                   ),
                   selected: state.selectedTextRecognitionExampleImage == VisionExampleImage.bookCover,
                 ),
@@ -69,7 +69,7 @@ class TextRecognitionWindow extends StatelessWidget {
                   image: VisionExampleImage.coffeeMenu,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.coffeeMenu,
-                    service: AppleIntelligenceVisionCapability.textRecognition,
+                    service: AppleMLVisionCapability.textRecognition,
                   ),
                   selected: state.selectedTextRecognitionExampleImage == VisionExampleImage.coffeeMenu,
                 ),

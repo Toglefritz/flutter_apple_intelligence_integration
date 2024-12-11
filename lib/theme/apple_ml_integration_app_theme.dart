@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Provides [ThemeData] for the Apple Intelligence Integration Demo app.
-class AppleIntelligenceIntegrationAppTheme {
-  /// Returns dark theme data for the Apple Intelligence Integration Demo app.
+/// Provides [ThemeData] for the Apple ML Integration Demo app.
+class AppleMLIntegrationAppTheme {
+  /// Returns dark theme data for the Apple ML Integration Demo app.
   static ThemeData themeData = ThemeData(
     primaryColor: Colors.black,
     primaryColorDark: Colors.black,

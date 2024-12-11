@@ -3,8 +3,8 @@ import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/vision/components/example_image_tile.dart';
 import 'package:demo_app/screens/vision/components/face_detection_overlay.dart';
 import 'package:demo_app/screens/vision/vision_controller.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/models/apple_ml_vision_capability.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:demo_app/values/inset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// A "window" containing a series of example images for which the user can request face detection.
 ///
 /// This widget presents a "window" designed to look like it is from a 1980s computer interface. The window includes a
-/// selection of images that can be submitted for face detection using Apple Intelligence. The user can click on an
+/// selection of images that can be submitted for face detection using Apple Machine Learning. The user can click on an
 /// image to request face detection and the system will return the bounding boxes for any faces detected in the image.
 class FaceDetectionWindow extends StatelessWidget {
   /// Creates an instance of [FaceDetectionWindow].
@@ -54,7 +54,7 @@ class FaceDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.astronaut,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.astronaut,
-                    service: AppleIntelligenceVisionCapability.faceDetection,
+                    service: AppleMLVisionCapability.faceDetection,
                   ),
                   selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.astronaut,
                 ),
@@ -62,7 +62,7 @@ class FaceDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.group,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.group,
-                    service: AppleIntelligenceVisionCapability.faceDetection,
+                    service: AppleMLVisionCapability.faceDetection,
                   ),
                   selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.group,
                 ),
@@ -70,7 +70,7 @@ class FaceDetectionWindow extends StatelessWidget {
                   image: VisionExampleImage.crowd,
                   onTap: () => state.onSelectExampleImage(
                     image: VisionExampleImage.crowd,
-                    service: AppleIntelligenceVisionCapability.faceDetection,
+                    service: AppleMLVisionCapability.faceDetection,
                   ),
                   selected: state.selectedFaceDetectionExampleImage == VisionExampleImage.crowd,
                 ),

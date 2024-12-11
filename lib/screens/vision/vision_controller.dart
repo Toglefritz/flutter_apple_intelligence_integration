@@ -1,18 +1,18 @@
 import 'package:demo_app/screens/vision/vision_route.dart';
 import 'package:demo_app/screens/vision/vision_view.dart';
-import 'package:demo_app/services/apple_intelligence_vision/apple_intelligence_vision_service.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/apple_intelligence_vision_capability.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/face_detection_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/image_classification_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/object_detection_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/text_recognition_result.dart';
-import 'package:demo_app/services/apple_intelligence_vision/models/vision_example_image.dart';
+import 'package:demo_app/services/apple_ml_vision/apple_ml_vision_service.dart';
+import 'package:demo_app/services/apple_ml_vision/models/apple_ml_vision_capability.dart';
+import 'package:demo_app/services/apple_ml_vision/models/face_detection_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/image_classification_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/object_detection_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/text_recognition_result.dart';
+import 'package:demo_app/services/apple_ml_vision/models/vision_example_image.dart';
 import 'package:flutter/material.dart';
 
 /// A controller for the [VisionRoute].
 class VisionController extends State<VisionRoute> {
-  /// A service for using the natural language processing capabilities of Apple Intelligence.
-  final AppleIntelligenceVisionService _visionService = AppleIntelligenceVisionService();
+  /// A service for using the natural language processing capabilities of Apple Machine Learning.
+  final AppleMLVisionService _visionService = AppleMLVisionService();
 
   /// The example image selected by the user for classification.
   VisionExampleImage? selectedClassificationExampleImage;
@@ -63,24 +63,24 @@ class VisionController extends State<VisionRoute> {
   }
 
   /// Called when the user selects an example image for one of the windows providing demonstrations of the vision
-  /// capabilities of Apple Intelligence.
+  /// capabilities of Apple Machine Learning.
   ///
   /// This function updates the state to reflect the selected example image. The provided
-  /// [AppleIntelligenceVisionCapability] determines the demonstration for which an image was selected.
+  /// [AppleMLVisionCapability] determines the demonstration for which an image was selected.
   void onSelectExampleImage({
     required VisionExampleImage image,
-    required AppleIntelligenceVisionCapability service,
+    required AppleMLVisionCapability service,
   }) {
     debugPrint('Selected example image: $image');
 
     setState(() {
-      if (service == AppleIntelligenceVisionCapability.classification) {
+      if (service == AppleMLVisionCapability.classification) {
         selectedClassificationExampleImage = image;
-      } else if (service == AppleIntelligenceVisionCapability.objectDetection) {
+      } else if (service == AppleMLVisionCapability.objectDetection) {
         selectedObjectDetectionExampleImage = image;
-      } else if (service == AppleIntelligenceVisionCapability.textRecognition) {
+      } else if (service == AppleMLVisionCapability.textRecognition) {
         selectedTextRecognitionExampleImage = image;
-      } else if (service == AppleIntelligenceVisionCapability.faceDetection) {
+      } else if (service == AppleMLVisionCapability.faceDetection) {
         selectedFaceDetectionExampleImage = image;
       }
     });
