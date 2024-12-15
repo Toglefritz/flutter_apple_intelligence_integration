@@ -56,10 +56,6 @@
   "@sound": {
     "description": "A label for the Apple ML sound recognition services."
   },
-  "speech": "Speech",
-  "@speech": {
-    "description": "A label for the Apple ML speech services."
-  },
   "soundClassifySoundSubmit": "Classify Sound",
   "@soundClassifySoundSubmit": {
     "description": "The text for a button used to submit a sound for classification."
@@ -79,10 +75,6 @@
   "soundSelectExampleSoundFile": "Select an example sound file",
   "@soundSelectExampleSoundFile": {
     "description": "A label for the Apple ML sound select example sound file services."
-  },
-  "translation": "Translation",
-  "@translation": {
-    "description": "A label for the Apple ML translation services."
   },
   "vision": "Vision",
   "@vision": {

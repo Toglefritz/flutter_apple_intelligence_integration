@@ -12,12 +12,6 @@ enum ImageAsset {
   /// An icon used for the Apple ML sound service.
   sound('assets/sound.png'),
 
-  /// An icon used for the Apple ML speech recognition service.
-  speech('assets/speech.png'),
-
-  /// An icon used for the Apple ML translation service.
-  translation('assets/translation.png'),
-
   /// An icon used for the Apple ML vision service.
   vision('assets/vision.png'),;
 

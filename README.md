@@ -12,9 +12,7 @@ including:
 - **Vision**: Perform image analysis and computer vision tasks like object detection.
 - **Natural Language**: Process and analyze text for tasks like tokenization, sentiment analysis,
   and language identification.
-- **Speech**: Implement speech-to-text transcription.
 - **Sound Analysis**: Classify and detect sounds from audio input.
-- **Translation**: Translate text between languages.
 
 The project is designed for developers who want to directly integrate Apple’s native ML frameworks
 into their Flutter applications without relying on third-party plugins. It provides a modular
@@ -47,9 +45,7 @@ lib/
 ├── services/
 │   ├── apple_ml_vision_service.dart      # Vision framework integration
 │   ├── apple_ml_natural_language_service.dart # Natural Language framework integration
-│   ├── apple_ml_speech_service.dart      # Speech recognition integration
 │   ├── apple_ml_sound_analysis_service.dart # Sound Analysis framework integration
-│   └── apple_ml_translation_service.dart # Translation framework integration
 ├── main.dart
 ```
 
@@ -66,12 +62,8 @@ ios/
     │   │   └── VisionMethodChannelHandler.swift
     │   ├── NaturalLanguage/
     │   │   └── NaturalLanguageMethodChannelHandler.swift
-    │   ├── Speech/
-    │   │   └── SpeechMethodChannelHandler.swift
     │   ├── SoundAnalysis/
     │   │   └── SoundAnalysisMethodChannelHandler.swift
-    │   └── Translation/
-    │       └── TranslationMethodChannelHandler.swift
     └── AppDelegate.swift
 ```
 

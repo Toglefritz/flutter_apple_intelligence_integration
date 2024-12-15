@@ -10,12 +10,6 @@ enum AppleMachineLearningService {
   /// The sound service.
   sound(ImageAsset.sound),
 
-  /// The speech recognition service.
-  speechRecognition(ImageAsset.speech),
-
-  /// The translation service.
-  translation(ImageAsset.translation),
-
   /// The vision service.
   vision(ImageAsset.vision);
 
@@ -32,10 +26,6 @@ enum AppleMachineLearningService {
         return AppLocalizations.of(context)!.nlp.replaceAll(' ', '\n');
       case AppleMachineLearningService.sound:
         return AppLocalizations.of(context)!.sound;
-      case AppleMachineLearningService.speechRecognition:
-        return AppLocalizations.of(context)!.speech;
-      case AppleMachineLearningService.translation:
-        return AppLocalizations.of(context)!.translation;
       case AppleMachineLearningService.vision:
         return AppLocalizations.of(context)!.vision;
     }

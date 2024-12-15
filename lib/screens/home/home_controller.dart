@@ -16,10 +16,6 @@ class HomeController extends State<HomeRoute> {
         onNaturalLanguageButtonTap();
       case AppleMachineLearningService.sound:
         onSoundButtonTap();
-      case AppleMachineLearningService.speechRecognition:
-        onSpeechRecognitionButtonTap();
-      case AppleMachineLearningService.translation:
-        onTranslationButtonTap();
       case AppleMachineLearningService.vision:
         onVisionButtonTap();
     }
@@ -51,16 +47,6 @@ class HomeController extends State<HomeRoute> {
         ),
       ),
     );
-  }
-
-  /// Called when the user taps the "Speech Recognition" button.
-  void onSpeechRecognitionButtonTap() {
-    // TODO(Toglefritz): Implement this method.
-  }
-
-  /// Called when the user taps the "Translation" button.
-  void onTranslationButtonTap() {
-    // TODO(Toglefritz): Implement this method.
   }
 
   /// Called when the user taps the "Vision" button.

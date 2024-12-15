@@ -1,7 +1,6 @@
+import 'package:demo_app/services/apple_ml_sound/models/playback_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'models/playback_status.dart';
 
 /// A service class for handling audio playback operations in a Flutter application.
 ///
