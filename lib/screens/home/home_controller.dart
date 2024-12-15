@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/home/home_route.dart';
 import 'package:demo_app/screens/home/home_view.dart';
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
+import 'package:demo_app/screens/sound/sound_route.dart';
 import 'package:demo_app/screens/vision/vision_route.dart';
 import 'package:demo_app/services/apple_machine_learning_service.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,16 @@ class HomeController extends State<HomeRoute> {
 
   /// Called when the user taps the "Sound" button.
   void onSoundButtonTap() {
-    // TODO(Toglefritz): Implement this method.
+    // Navigate to the Sound route with a fade animation.
+    Navigator.of(context).push(
+      PageRouteBuilder<void>(
+        pageBuilder: (context, animation, secondaryAnimation) => const SoundRoute(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+      ),
+    );
   }
 
   /// Called when the user taps the "Speech Recognition" button.

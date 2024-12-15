@@ -34,6 +34,7 @@ flutter:
   assets:
     - assets/
     - assets/vision_examples/
+    - assets/sound_examples/
 
   fonts:
     - family: Chicago

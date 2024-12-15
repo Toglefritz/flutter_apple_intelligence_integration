@@ -60,6 +60,26 @@
   "@speech": {
     "description": "A label for the Apple ML speech services."
   },
+  "soundClassifySoundSubmit": "Classify Sound",
+  "@soundClassifySoundSubmit": {
+    "description": "The text for a button used to submit a sound for classification."
+  },
+  "soundWelcomeMessage": "Apple ML Sound Recognition Services",
+  "@soundWelcomeMessage": {
+    "description": "A welcome message for the Apple ML sound recognition services."
+  },
+  "soundFileClassification": "Sound File Classification",
+  "@soundFileClassification": {
+    "description": "A label for the Apple ML sound file classification services."
+  },
+  "soundFileClassificationSubmit": "Classify Sound File",
+  "@soundFileClassificationSubmit": {
+    "description": "The text for a button used to submit a sound file for classification."
+  },
+  "soundSelectExampleSoundFile": "Select an example sound file",
+  "@soundSelectExampleSoundFile": {
+    "description": "A label for the Apple ML sound select example sound file services."
+  },
   "translation": "Translation",
   "@translation": {
     "description": "A label for the Apple ML translation services."

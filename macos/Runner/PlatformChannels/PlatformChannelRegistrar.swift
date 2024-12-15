@@ -11,6 +11,7 @@ import FlutterMacOS
 /// separating the responsibilities of registering and managing Method Channels from the app's main
 /// entry point (`AppDelegate`). This separation of concerns simplifies the codebase and allows
 /// individual Method Channel handlers to be updated or extended independently.
+@available(macOS 12.0, *)
 class PlatformChannelRegistrar {
     private let messenger: FlutterBinaryMessenger
 
@@ -25,8 +26,8 @@ class PlatformChannelRegistrar {
     func registerHandlers() {
         registerNaturalLanguageHandler()
         registerVisionHandler()
-        
-        // TODO Add other handlers here
+        registerSoundHandler()
+        registerAudioFilePlaybackHandler()
     }
 
     /// Registers the Natural Language Method Channel handler.
@@ -37,5 +38,15 @@ class PlatformChannelRegistrar {
     /// Registers the Vision Method Channel handler.
     private func registerVisionHandler() {
         _ = VisionMethodChannelHandler(messenger: messenger)
+    }
+    
+    /// Registers the Sound Method Channel handler.
+    private func registerSoundHandler() {
+        _ = SoundMethodChannelHandler(messenger: messenger)
+    }
+    
+    /// Registers the audio file playback Method Channel handler.
+    private func registerAudioFilePlaybackHandler() {
+        _ = AudioPlaybackMethodChannelHandler(messenger: messenger)
     }
 }

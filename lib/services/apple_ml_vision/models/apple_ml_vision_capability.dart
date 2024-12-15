@@ -11,4 +11,7 @@ enum AppleMLVisionCapability {
 
   /// The face detection capability.
   faceDetection,
+
+  /// The sound classification capability.
+  soundClassification,
 }

@@ -1,6 +1,7 @@
 import Cocoa
 import FlutterMacOS
 
+@available(macOS 12.0, *)
 @main
 class AppDelegate: FlutterAppDelegate {
     private var platformChannelRegistrar: PlatformChannelRegistrar?
