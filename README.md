@@ -90,7 +90,7 @@ between using the built-in model or the provided custom Core ML model.
 1. Clone the Repository:
 
 ```bash
-git clone https://github.com/Toglefritz/flutter_apple_intelligence_integration.git
+git clone https://github.com/Toglefritz/flutter_apple_machine_learning.git
 ```
 
 2. Choose the Features You Need:
