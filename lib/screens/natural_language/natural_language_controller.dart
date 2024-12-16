@@ -1,6 +1,7 @@
 import 'package:demo_app/screens/natural_language/natural_language_route.dart';
 import 'package:demo_app/screens/natural_language/natural_language_view.dart';
 import 'package:demo_app/services/apple_ml_natural_language/apple_ml_natural_language_service.dart';
+import 'package:demo_app/services/apple_ml_natural_language/models/named_entity_recognition_result.dart';
 import 'package:demo_app/services/apple_ml_natural_language/models/tokenization_unit.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,7 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
   List<String>? tokenizedText;
 
   /// A list of named entities identified by Apple ML for text submitted by the user.
-  List<Map<String, String>>? namedEntities;
+  List<NamedEntityRecognitionResult>? namedEntities;
 
   /// A list of lemmatized words based on the text submitted by the user.
   List<String>? lemmatizedText;
@@ -110,7 +111,7 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
     debugPrint('Recognizing named entities for text, $textInput');
 
     // Use the natural language service to recognize named entities in the text.
-    final List<Map<String, String>>? entities = await _naturalLanguageService.recognizeEntities(textInput);
+    final List<NamedEntityRecognitionResult>? entities = await _naturalLanguageService.recognizeEntities(textInput);
 
     debugPrint('Recognized named entities as $entities');
 
@@ -133,6 +134,29 @@ class NaturalLanguageController extends State<NaturalLanguageRoute> {
     setState(() {
       lemmatizedText = lemmatized;
     });
+  }
+
+  /// Returns a "pretty print" string representation of the named entity recognition results.
+  ///
+  /// This function formats the NER results for easier readability, displaying each recognized entity
+  /// and its type on a new line. It also includes only the top ten entities (based on their order in
+  /// the result list) to avoid the list becoming too long.
+  ///
+  /// - Returns: A formatted string of the named entities or `null` if no results are available.
+  String? get prettyPrintNERResults {
+    if (namedEntities == null || namedEntities!.isEmpty) {
+      return null;
+    }
+
+    // Limit the output to the top 10 results, or fewer if there are fewer entities.
+    final List<NamedEntityRecognitionResult> topResults = namedEntities!.take(10).toList();
+
+    // Create a string representation of the NER results.
+    final String prettyPrintedResults = topResults.map((result) {
+      return '${result.entity}: ${result.type}';
+    }).join('\n');
+
+    return prettyPrintedResults;
   }
 
   @override

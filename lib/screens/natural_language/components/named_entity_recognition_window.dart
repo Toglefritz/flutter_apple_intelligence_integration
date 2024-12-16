@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:demo_app/screens/components/capability_window.dart';
 import 'package:demo_app/screens/natural_language/natural_language_controller.dart';
 import 'package:demo_app/values/inset.dart';
@@ -86,7 +85,7 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
                   ),
             ),
           ),
-          if (state.namedEntities != null)
+          if (state.prettyPrintNERResults != null)
             Padding(
               padding: const EdgeInsets.only(
                 left: Inset.large,
@@ -94,7 +93,7 @@ class NamedEntityRecognitionWindow extends StatelessWidget {
                 right: Inset.large,
               ),
               child: Text(
-                const JsonEncoder.withIndent('  ').convert(state.namedEntities),
+                state.prettyPrintNERResults!,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).primaryColor,
                     ),
